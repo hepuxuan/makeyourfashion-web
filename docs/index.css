@@ -1,0 +1,31 @@
+.header {
+	padding: 0 40px 0 40px;
+	box-shadow: 0 3px 10px rgba(0,0,0,.25);
+	margin-bottom: 20px;
+	height: 70px;
+}
+.header .mdl-tabs__tab-bar {
+	height: 70px;
+	justify-content: flex-start;
+}
+
+.mdl-tabs__tab-bar {
+	justify-content: space-around;
+}
+
+.header-tab {
+	font-size: 1.125em;
+	padding-top: 20px;
+	height: 50px;
+	min-width: 80px;
+}
+
+.header-cell {
+	margin-top: 0;
+}
+
+.header .cart-icon {
+	margin-top: 20px;
+	cursor: pointer;
+	color: black;
+}
