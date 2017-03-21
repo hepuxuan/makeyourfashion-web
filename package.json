@@ -22,12 +22,14 @@
   "dependencies": {
     "konva": "^1.4.0",
     "lodash": "^4.17.4",
+    "promise-polyfill": "^6.0.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-konva": "^1.1.1",
     "react-mdl": "^1.9.0",
     "react-redux": "^5.0.3",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
     "webpackWatch": "webpack -w",

@@ -13,7 +13,8 @@ const SIZE_LOCALIZE_MAP = {
 }
 
 @connect(state => ({
-	order: state.ui.createOrder.order
+	order: state.ui.createOrder.order,
+	error: state.error.order
 }), dispatch => ({
 	updateOrder (order) {
 		dispatch(updateOrder(order))
@@ -42,6 +43,7 @@ export default class OrderForm extends React.Component {
 		return <form className={css.orderform}>
 			<div><label className={css.pricelabel}>{`¥ ${this.props.order.price.toFixed(2)}`}</label></div>
 			<Textfield
+				error={this.props.error.qty}
 		    onChange={this.handleEnterQty}
 		    type='number'
 		    value={this.props.order.qty}
@@ -49,7 +51,11 @@ export default class OrderForm extends React.Component {
 		    floatingLabel
 		    style={{width: '200px'}}
 			/>
-			<Dropdown label='尺码' id='select-size' value={SIZE_LOCALIZE_MAP[this.props.order.size]} onSelect={this.handleSelectSize} items={values(SIZE_LOCALIZE_MAP)}/>
+			<Dropdown label='尺码' id='select-size'
+				value={SIZE_LOCALIZE_MAP[this.props.order.size]}
+				onSelect={this.handleSelectSize}
+				items={values(SIZE_LOCALIZE_MAP)}
+				error={this.props.error.size} />
 		</form>
 	}
 }

@@ -1,10 +1,12 @@
 import React from 'react'
-import {Dialog, Tabs, Tab} from 'react-mdl'
+import {Tabs, Tab} from 'react-mdl'
 import ProductCard from './ProductCard'
 import css from './create-shirt.css'
 import {connect} from 'react-redux'
 import {values} from 'lodash'
 import { toggleProductModel } from '../../action'
+import { fetchProducts } from '../../action'
+import Modal from '../Modal'
 
 @connect(state => ({
 	open: state.ui.createOrder.isProductModelOpen,
@@ -13,6 +15,9 @@ import { toggleProductModel } from '../../action'
 }), dispatch => ({
 	toggleProductModel () {
 		dispatch(toggleProductModel)
+	},
+	fetchProducts () {
+		dispatch(fetchProducts())
 	}
 }))
 export default class SelectProduct extends React.Component {
@@ -21,6 +26,10 @@ export default class SelectProduct extends React.Component {
 		this.state = {
 			activeTab: 0
 		}
+	}
+
+	componentDidMount() {
+		this.props.fetchProducts()
 	}
 
 	handleTabChange = id => {
@@ -47,7 +56,7 @@ export default class SelectProduct extends React.Component {
 			activeProducts = values(this.props.products).filter(p => p.category === this.state.activeTab - 1)
 		}
 
-		return <Dialog className={css.model} onCancel={this.handleToggleProductModel} open={this.props.open}>
+		return <Modal onCloseModal={this.handleToggleProductModel} open={this.props.open}>
 		  <Tabs activeTab={this.state.activeTab} onChange={this.handleTabChange} ripple>
 		  	<Tab>全部</Tab>
         {categories.map((category, index) => <Tab key={index}>{category}</Tab>)}
@@ -57,6 +66,6 @@ export default class SelectProduct extends React.Component {
       		activeProducts.map(product => <ProductCard onSelect={this.handleToggleProductModel} product={product} />)
       	}	
       </section>
-		</Dialog>
+		</Modal>
 	}
 }

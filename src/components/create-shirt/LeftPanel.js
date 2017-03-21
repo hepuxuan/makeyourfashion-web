@@ -3,6 +3,7 @@ import {FABButton, Icon, List, ListItem, Grid, Cell, Textfield} from 'react-mdl'
 import {connect} from 'react-redux'
 import { toggleProductModel } from '../../action'
 import css from './create-shirt.css'
+import { fetchProducts } from '../../action'
 
 @connect(state => ({
 	products: state.entities.products,
@@ -10,9 +11,16 @@ import css from './create-shirt.css'
 }), dispatch => ({
 	toggleProductModel () {
 		dispatch(toggleProductModel)
+	},
+	fetchProducts () {
+		dispatch(fetchProducts())
 	}
 }))
 export default class LeftPanel extends React.Component {
+	componentDidMount () {
+		this.props.fetchProducts()
+	}
+
 	handleSelectProduct = e => {
 		e.preventDefault()
 		this.props.toggleProductModel()

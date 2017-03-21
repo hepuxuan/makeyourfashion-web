@@ -1,5 +1,13 @@
-import {TOGGLE_PRODUCT_MODEL, UPDATE_ORDER} from './action'
+import {TOGGLE_PRODUCT_MODEL,
+	UPDATE_ORDER,
+	START_FETCH_PRODUCT,
+	FINISH_FETCH_PRODUCT,
+	REPLACE_PRODUCTS,
+	ADD_TO_CART
+} from './action'
 import { combineReducers } from 'redux'
+import {keyBy, isEmpty} from 'lodash'
+import {validateOrder, validateOrderWhenPresent} from './validation'
 
 const initialState = {
 	entities: {
@@ -7,21 +15,13 @@ const initialState = {
 			0: '男士',
 			1: '女士'
 		},
-		products: {
-			0: {
-				id: 0,
-				category: 0,
-				name: '男士体恤',
-				imgUrl: 'https://image1.spreadshirtmedia.com/image-server/v1/productTypes/812/views/1/appearances/92?width=800&height=800&mediaType=webp'
-			},
-			1: {
-				id: 1,
-				category: 1,
-				name: '女士体恤',
-				imgUrl: 'https://image2.spreadshirtmedia.com/image-server/v1/productTypes/813/views/1/appearances/92?width=800&height=800&mediaType=webp'
-			}
-		}
+		products: {},
+		cart: JSON.parse(localStorage.getItem('myf_cart') || '[]')
 	},
+	fetchStatus : {
+		isFetchingProduct: false
+	},
+	error: {},
 	ui: {
 		createOrder: {
 			order: {
@@ -33,6 +33,23 @@ const initialState = {
 			isProductModelOpen: false
 		}
 	}
+}
+
+function fetchStatus (state = initialState.fetchStatus, action) {
+	switch (action.type) {
+    case START_FETCH_PRODUCT:
+      return {
+        ...state,
+        isFetchingProduct: true
+      }
+    case FINISH_FETCH_PRODUCT:
+      return {
+        ...state,
+        isFetchingProduct: false
+      }
+    default:
+      return state 
+  }
 }
 
 function createOrder (state = initialState.ui.createOrder, action) {
@@ -55,8 +72,46 @@ function createOrder (state = initialState.ui.createOrder, action) {
   }
 }
 
+function error (state = initialState.ui.createOrder, action) {
+  switch (action.type) {
+    case UPDATE_ORDER:
+      return {
+        ...state,
+        order: validateOrderWhenPresent(action.payload)
+      }
+   	case ADD_TO_CART:
+    	return {
+    		...state,
+    		order: validateOrder(action.payload)
+    	}
+    default:
+      return state 
+  }
+}
+
 function products (state = initialState.entities.products, action) {
 	switch (action.type) {
+		case REPLACE_PRODUCTS:
+			return {
+				...state,
+				...keyBy(action.payload, 'id')
+			}
+		default:
+      return state 
+	}
+}
+
+function cart (state = initialState.entities.cart, action) {
+	switch (action.type) {
+		case ADD_TO_CART:
+			if (isEmpty(validateOrder(action.payload))) {
+				return [
+					...state,
+					action.payload
+				]
+			} else {
+				return state
+			}
 		default:
       return state 
 	}
@@ -70,6 +125,6 @@ function categories (state = initialState.entities.categories, action) {
 }
 
 const ui = combineReducers({createOrder})
-const entities = combineReducers({products, categories})
+const entities = combineReducers({products, categories, cart})
 
-export default combineReducers({entities, ui})
+export default combineReducers({entities, ui, fetchStatus, error})

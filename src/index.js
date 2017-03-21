@@ -3,16 +3,25 @@ import ReactDOM from 'react-dom'
 import CreateShirt from './components/create-shirt'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import reducer from './reducer'
 import {Tabs, Tab, Grid, Cell, Textfield, Icon, Badge} from 'react-mdl'
+import {sum} from 'lodash'
 
 const store = createStore(
   reducer,
   applyMiddleware(thunk)
 )
 
-window.store = store
+const CartIcon = ({cart}) => <a href='/cart'>
+	<Badge className='cart-icon' text={sum(cart.map(order => order.qty))} overlap>
+    <Icon name='shopping_cart' />
+	</Badge>
+</a>
+
+const CartIconContainer = connect(state => ({
+	cart: state.entities.cart
+}))(CartIcon)
 
 const App = (
 	<Provider store={store}>
@@ -27,19 +36,15 @@ const App = (
 		    </Cell>
 		    <Cell offset={2} col={2}>
 		    	<Textfield
-            value=""
+            value=''
             onChange={() => {}}
-            label="Search"
+            label='Search'
             expandable
-            expandableIcon="search"
+            expandableIcon='search'
           />
 		    </Cell>
 		    <Cell col={2}>
-		    	<a href='/cart'>
-			    	<Badge className='cart-icon' text="1" overlap>
-					    <Icon name='shopping_cart' />
-						</Badge>
-					</a>
+		    	<CartIconContainer />
 		    </Cell>
 			</Grid>
 			<CreateShirt />

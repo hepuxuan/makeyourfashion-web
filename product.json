@@ -1,0 +1,44 @@
+[
+	{
+		"id": 0,
+		"category": 0,
+		"name": "男士体恤",
+		"imgUrl": "https://image1.spreadshirtmedia.com/image-server/v1/productTypes/812/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 1,
+		"category": 1,
+		"name": "女士体恤",
+		"imgUrl": "https://image2.spreadshirtmedia.com/image-server/v1/productTypes/813/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 3,
+		"category": 1,
+		"name": "女士体恤",
+		"imgUrl": "https://image2.spreadshirtmedia.com/image-server/v1/productTypes/813/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 4,
+		"category": 0,
+		"name": "男士体恤",
+		"imgUrl": "https://image1.spreadshirtmedia.com/image-server/v1/productTypes/812/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 5,
+		"category": 0,
+		"name": "男士体恤",
+		"imgUrl": "https://image1.spreadshirtmedia.com/image-server/v1/productTypes/812/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 6,
+		"category": 1,
+		"name": "女士体恤",
+		"imgUrl": "https://image2.spreadshirtmedia.com/image-server/v1/productTypes/813/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	},
+	{
+		"id": 7,
+		"category": 1,
+		"name": "女士体恤",
+		"imgUrl": "https://image2.spreadshirtmedia.com/image-server/v1/productTypes/813/views/1/appearances/92?width=800&height=800&mediaType=webp"
+	}
+]

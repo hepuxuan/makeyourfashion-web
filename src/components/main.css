@@ -1,0 +1,21 @@
+.modal {
+	width: 80%;
+	position: relative;
+}
+
+.closemodal {
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	height: 40px !important;
+	width: 40px !important;
+	min-width: 40px !important;
+}
+
+.error {
+	color: #d50000;
+  position: absolute;
+  font-size: 12px;
+  margin-top: 3px;
+  display: block;
+}
