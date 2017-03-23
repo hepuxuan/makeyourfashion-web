@@ -9,51 +9,54 @@ import OrderForm from './OrderForm'
 import { fetchProducts, addToCart } from '../../action'
 
 @connect(state => ({
-	products: state.entities.products,
-	order: state.ui.createOrder.order
+  products: state.entities.products,
+  order: state.ui.createOrder.order
 }), dispatch => ({
-	fetchProducts () {
-		dispatch(fetchProducts())
-	},
-	addToCart (order) {
-		dispatch(addToCart(order))
-	}
+  fetchProducts () {
+    dispatch(fetchProducts())
+  },
+  addToCart (order) {
+    dispatch(addToCart(order))
+  }
 }))
 export default class CreateShirt extends React.Component {
-	componentDidMount() {
-		this.props.fetchProducts()
-	}
+  componentDidMount() {
+    this.props.fetchProducts()
+  }
 
-	handleAddToCard = e => {
-		e.preventDefault()
-		this.props.addToCart(this.props.order)
-	}
+  handleAddToCard = e => {
+    e.preventDefault()
+    this.props.addToCart({
+      ...this.props.order,
+      imgUrl: this.props.products[this.props.order.productId].imgUrl
+    })
+  }
 
-	render () {
-		const product = this.props.products[this.props.order.productId]
-		return (() => {
-			if (!product) {
-				return <Spinner />
-			} else {
-				return <div>
-					<Grid className={css.container}>
-						<Cell col={3}>
-							<LeftPanel />
-						</Cell>
-						<Cell col={6}>
-							<CreateShirtCanvas 
-								image={product.imgUrl}/>
-						</Cell>
-						<Cell col={3}>
-							<OrderForm />
-						</Cell>
-					</Grid>
-					<SelectProduct />
-					<div className={css.actionarea}>
-						<Button onClick={this.handleAddToCard} className={css.actionbutton} accent ripple raised>添加到购物车</Button>
-					</div>
-				</div>
-			}
-		})()
-	}
+  render () {
+    const product = this.props.products[this.props.order.productId]
+    return (() => {
+      if (!product) {
+        return <Spinner />
+      } else {
+        return <div>
+          <Grid className={css.container}>
+            <Cell col={3}>
+              <LeftPanel />
+            </Cell>
+            <Cell col={6}>
+              <CreateShirtCanvas 
+                image={product.imgUrl}/>
+            </Cell>
+            <Cell col={3}>
+              <OrderForm />
+            </Cell>
+          </Grid>
+          <SelectProduct />
+          <div className={css.actionarea}>
+            <Button onClick={this.handleAddToCard} className={css.actionbutton} accent ripple raised>添加到购物车</Button>
+          </div>
+        </div>
+      }
+    })()
+  }
 }

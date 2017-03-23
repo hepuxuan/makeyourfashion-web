@@ -1,12 +1,15 @@
-import {TOGGLE_PRODUCT_MODEL,
+import {
+	TOGGLE_PRODUCT_MODEL,
 	UPDATE_ORDER,
 	START_FETCH_PRODUCT,
 	FINISH_FETCH_PRODUCT,
 	REPLACE_PRODUCTS,
-	ADD_TO_CART
+	ADD_TO_CART,
+	UPDATE_CART_ITEM,
+  REMOVE_ITEM_FROM_CART
 } from './action'
 import { combineReducers } from 'redux'
-import {keyBy, isEmpty} from 'lodash'
+import {keyBy, isEmpty, pickBy} from 'lodash'
 import {validateOrder, validateOrderWhenPresent} from './validation'
 
 const initialState = {
@@ -16,12 +19,15 @@ const initialState = {
 			1: '女士'
 		},
 		products: {},
-		cart: JSON.parse(localStorage.getItem('myf_cart') || '[]')
+		cart: JSON.parse(localStorage.getItem('myf_cart') || '{}')
 	},
 	fetchStatus : {
 		isFetchingProduct: false
 	},
-	error: {},
+	error: {
+		cart: {},
+		order: {}
+	},
 	ui: {
 		createOrder: {
 			order: {
@@ -72,7 +78,7 @@ function createOrder (state = initialState.ui.createOrder, action) {
   }
 }
 
-function error (state = initialState.ui.createOrder, action) {
+function error (state = initialState.error, action) {
   switch (action.type) {
     case UPDATE_ORDER:
       return {
@@ -83,6 +89,14 @@ function error (state = initialState.ui.createOrder, action) {
     	return {
     		...state,
     		order: validateOrder(action.payload)
+    	}
+    case UPDATE_CART_ITEM:
+    	return {
+    		...state,
+    		cart: {
+    			...cart,
+    			[action.payload.id]: validateOrder(action.payload)
+    		}
     	}
     default:
       return state 
@@ -104,14 +118,17 @@ function products (state = initialState.entities.products, action) {
 function cart (state = initialState.entities.cart, action) {
 	switch (action.type) {
 		case ADD_TO_CART:
+		case UPDATE_CART_ITEM:
 			if (isEmpty(validateOrder(action.payload))) {
-				return [
+				return {
 					...state,
-					action.payload
-				]
+					[action.payload.id]: action.payload
+				}
 			} else {
 				return state
 			}
+    case REMOVE_ITEM_FROM_CART:
+      return pickBy(state, order => order.id !== action.payload)
 		default:
       return state 
 	}

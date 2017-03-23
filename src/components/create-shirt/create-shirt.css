@@ -4,44 +4,44 @@
 }
 
 canvas {
-	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .productlist {
-	margin-top: 10px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .productcard {
-	width: 150px;
-	min-width: 150px;
-	height: 150px;
-	margin: auto;
-	cursor: pointer;
-	margin: 10px 10px 0 0;
+  width: 150px;
+  min-width: 150px;
+  height: 150px;
+  margin: auto;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
 }
 
 .label {
-	font-size: 0.7em;
+  font-size: 0.7em;
   font-weight: bold;
 }
 
 .cardacton {
-	background: rgba(0,0,0,0.3);
-	color: #fff;
-	font-size: 14px;
-	font-weight: 500;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .actionarea {
-	position: relative;
-	margin: 40px 40px 0 40px;
+  position: relative;
+  margin: 40px 40px 0 40px;
 }
 .actionbutton {
-	position: absolute;
-	right: 0;
+  position: absolute;
+  right: 0;
 }
 
 .orderform {
@@ -49,5 +49,5 @@ canvas {
 }
 
 .pricelabel {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }

@@ -1212,7 +1212,7 @@
 
 	var _createShirt2 = _interopRequireDefault(_createShirt);
 
-	var _reduxThunk = __webpack_require__(308);
+	var _reduxThunk = __webpack_require__(312);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -1220,90 +1220,72 @@
 
 	var _reactRedux = __webpack_require__(261);
 
-	var _reducer = __webpack_require__(309);
+	var _reducer = __webpack_require__(313);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
 	var _reactMdl = __webpack_require__(193);
 
-	var _lodash = __webpack_require__(299);
+	var _ShoppingCartButton = __webpack_require__(314);
+
+	var _ShoppingCartButton2 = _interopRequireDefault(_ShoppingCartButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
-	var CartIcon = function CartIcon(_ref) {
-		var cart = _ref.cart;
-		return _react2.default.createElement(
-			'a',
-			{ href: '/cart' },
-			_react2.default.createElement(
-				_reactMdl.Badge,
-				{ className: 'cart-icon', text: (0, _lodash.sum)(cart.map(function (order) {
-						return order.qty;
-					})), overlap: true },
-				_react2.default.createElement(_reactMdl.Icon, { name: 'shopping_cart' })
-			)
-		);
-	};
-
-	var CartIconContainer = (0, _reactRedux.connect)(function (state) {
-		return {
-			cart: state.entities.cart
-		};
-	})(CartIcon);
-
+	window.store = store;
 	var App = _react2.default.createElement(
-		_reactRedux.Provider,
-		{ store: store },
-		_react2.default.createElement(
-			'div',
-			null,
-			_react2.default.createElement(
-				_reactMdl.Grid,
-				{ className: 'header' },
-				_react2.default.createElement(
-					_reactMdl.Cell,
-					{ className: 'header-cell', col: 6 },
-					_react2.default.createElement(
-						_reactMdl.Tabs,
-						{ activeTab: 1 },
-						_react2.default.createElement(
-							_reactMdl.Tab,
-							{ className: 'header-tab' },
-							'\u8D2D\u7269'
-						),
-						_react2.default.createElement(
-							_reactMdl.Tab,
-							{ className: 'header-tab' },
-							'\u8BBE\u8BA1'
-						),
-						_react2.default.createElement(
-							_reactMdl.Tab,
-							{ className: 'header-tab' },
-							'\u9500\u552E'
-						)
-					)
-				),
-				_react2.default.createElement(
-					_reactMdl.Cell,
-					{ offset: 2, col: 2 },
-					_react2.default.createElement(_reactMdl.Textfield, {
-						value: '',
-						onChange: function onChange() {},
-						label: 'Search',
-						expandable: true,
-						expandableIcon: 'search'
-					})
-				),
-				_react2.default.createElement(
-					_reactMdl.Cell,
-					{ col: 2 },
-					_react2.default.createElement(CartIconContainer, null)
-				)
-			),
-			_react2.default.createElement(_createShirt2.default, null)
-		)
+	  _reactRedux.Provider,
+	  { store: store },
+	  _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      _reactMdl.Grid,
+	      { className: 'header' },
+	      _react2.default.createElement(
+	        _reactMdl.Cell,
+	        { className: 'header-cell', col: 6 },
+	        _react2.default.createElement(
+	          _reactMdl.Tabs,
+	          { activeTab: 1 },
+	          _react2.default.createElement(
+	            _reactMdl.Tab,
+	            { className: 'header-tab' },
+	            '\u8D2D\u7269'
+	          ),
+	          _react2.default.createElement(
+	            _reactMdl.Tab,
+	            { className: 'header-tab' },
+	            '\u8BBE\u8BA1'
+	          ),
+	          _react2.default.createElement(
+	            _reactMdl.Tab,
+	            { className: 'header-tab' },
+	            '\u9500\u552E'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactMdl.Cell,
+	        { offset: 2, col: 2 },
+	        _react2.default.createElement(_reactMdl.Textfield, {
+	          value: '',
+	          onChange: function onChange() {},
+	          label: 'Search',
+	          expandable: true,
+	          expandableIcon: 'search'
+	        })
+	      ),
+	      _react2.default.createElement(
+	        _reactMdl.Cell,
+	        { col: 2 },
+	        _react2.default.createElement(_ShoppingCartButton2.default, null)
+	      )
+	    ),
+	    _react2.default.createElement(_createShirt2.default, null)
+	  )
 	);
 	_reactDom2.default.render(App, document.getElementById('root'));
 
@@ -21563,9 +21545,11 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -21589,13 +21573,13 @@
 
 	var _LeftPanel2 = _interopRequireDefault(_LeftPanel);
 
-	var _SelectProduct = __webpack_require__(301);
+	var _SelectProduct = __webpack_require__(304);
 
 	var _SelectProduct2 = _interopRequireDefault(_SelectProduct);
 
 	var _reactRedux = __webpack_require__(261);
 
-	var _OrderForm = __webpack_require__(306);
+	var _OrderForm = __webpack_require__(309);
 
 	var _OrderForm2 = _interopRequireDefault(_OrderForm);
 
@@ -21610,94 +21594,96 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var CreateShirt = (_dec = (0, _reactRedux.connect)(function (state) {
-		return {
-			products: state.entities.products,
-			order: state.ui.createOrder.order
-		};
+	  return {
+	    products: state.entities.products,
+	    order: state.ui.createOrder.order
+	  };
 	}, function (dispatch) {
-		return {
-			fetchProducts: function fetchProducts() {
-				dispatch((0, _action.fetchProducts)());
-			},
-			addToCart: function addToCart(order) {
-				dispatch((0, _action.addToCart)(order));
-			}
-		};
+	  return {
+	    fetchProducts: function fetchProducts() {
+	      dispatch((0, _action.fetchProducts)());
+	    },
+	    addToCart: function addToCart(order) {
+	      dispatch((0, _action.addToCart)(order));
+	    }
+	  };
 	}), _dec(_class = function (_React$Component) {
-		_inherits(CreateShirt, _React$Component);
+	  _inherits(CreateShirt, _React$Component);
 
-		function CreateShirt() {
-			var _ref;
+	  function CreateShirt() {
+	    var _ref;
 
-			var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-			_classCallCheck(this, CreateShirt);
+	    _classCallCheck(this, CreateShirt);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CreateShirt.__proto__ || Object.getPrototypeOf(CreateShirt)).call.apply(_ref, [this].concat(args))), _this), _this.handleAddToCard = function (e) {
-				e.preventDefault();
-				_this.props.addToCart(_this.props.order);
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CreateShirt.__proto__ || Object.getPrototypeOf(CreateShirt)).call.apply(_ref, [this].concat(args))), _this), _this.handleAddToCard = function (e) {
+	      e.preventDefault();
+	      _this.props.addToCart(_extends({}, _this.props.order, {
+	        imgUrl: _this.props.products[_this.props.order.productId].imgUrl
+	      }));
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-		_createClass(CreateShirt, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.fetchProducts();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
+	  _createClass(CreateShirt, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchProducts();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 
-				var product = this.props.products[this.props.order.productId];
-				return function () {
-					if (!product) {
-						return _react2.default.createElement(_reactMdl.Spinner, null);
-					} else {
-						return _react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(
-								_reactMdl.Grid,
-								{ className: _createShirt2.default.container },
-								_react2.default.createElement(
-									_reactMdl.Cell,
-									{ col: 3 },
-									_react2.default.createElement(_LeftPanel2.default, null)
-								),
-								_react2.default.createElement(
-									_reactMdl.Cell,
-									{ col: 6 },
-									_react2.default.createElement(_createShirtCanvas2.default, {
-										image: product.imgUrl })
-								),
-								_react2.default.createElement(
-									_reactMdl.Cell,
-									{ col: 3 },
-									_react2.default.createElement(_OrderForm2.default, null)
-								)
-							),
-							_react2.default.createElement(_SelectProduct2.default, null),
-							_react2.default.createElement(
-								'div',
-								{ className: _createShirt2.default.actionarea },
-								_react2.default.createElement(
-									_reactMdl.Button,
-									{ onClick: _this2.handleAddToCard, className: _createShirt2.default.actionbutton, accent: true, ripple: true, raised: true },
-									'\u6DFB\u52A0\u5230\u8D2D\u7269\u8F66'
-								)
-							)
-						);
-					}
-				}();
-			}
-		}]);
+	      var product = this.props.products[this.props.order.productId];
+	      return function () {
+	        if (!product) {
+	          return _react2.default.createElement(_reactMdl.Spinner, null);
+	        } else {
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              _reactMdl.Grid,
+	              { className: _createShirt2.default.container },
+	              _react2.default.createElement(
+	                _reactMdl.Cell,
+	                { col: 3 },
+	                _react2.default.createElement(_LeftPanel2.default, null)
+	              ),
+	              _react2.default.createElement(
+	                _reactMdl.Cell,
+	                { col: 6 },
+	                _react2.default.createElement(_createShirtCanvas2.default, {
+	                  image: product.imgUrl })
+	              ),
+	              _react2.default.createElement(
+	                _reactMdl.Cell,
+	                { col: 3 },
+	                _react2.default.createElement(_OrderForm2.default, null)
+	              )
+	            ),
+	            _react2.default.createElement(_SelectProduct2.default, null),
+	            _react2.default.createElement(
+	              'div',
+	              { className: _createShirt2.default.actionarea },
+	              _react2.default.createElement(
+	                _reactMdl.Button,
+	                { onClick: _this2.handleAddToCard, className: _createShirt2.default.actionbutton, accent: true, ripple: true, raised: true },
+	                '\u6DFB\u52A0\u5230\u8D2D\u7269\u8F66'
+	              )
+	            )
+	          );
+	        }
+	      }();
+	    }
+	  }]);
 
-		return CreateShirt;
+	  return CreateShirt;
 	}(_react2.default.Component)) || _class);
 	exports.default = CreateShirt;
 
@@ -39045,7 +39031,7 @@
 
 
 	// module
-	exports.push([module.id, ".create-shirt__container___26FCQ {\n  margin: 0 40px 0 40px;\n  background-color: rgb(247, 247, 247);\n}\n\ncanvas {\n\tbox-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);\n}\n\n.create-shirt__productlist___Qqfcu {\n\tmargin-top: 10px;\n\tdisplay: flex;\n\tflex-direction: row;\n\tflex-wrap: wrap;\n}\n\n.create-shirt__productcard___EfLyf {\n\twidth: 150px;\n\tmin-width: 150px;\n\theight: 150px;\n\tmargin: auto;\n\tcursor: pointer;\n\tmargin: 10px 10px 0 0;\n}\n\n.create-shirt__label___oIT_B {\n\tfont-size: 0.7em;\n  font-weight: bold;\n}\n\n.create-shirt__cardacton___1B93g {\n\tbackground: rgba(0,0,0,0.3);\n\tcolor: #fff;\n\tfont-size: 14px;\n\tfont-weight: 500;\n}\n\n.create-shirt__actionarea___25AVw {\n\tposition: relative;\n\tmargin: 40px 40px 0 40px;\n}\n.create-shirt__actionbutton___2lr_z {\n\tposition: absolute;\n\tright: 0;\n}\n\n.create-shirt__orderform___36amp {\n  margin-top: 10%;\n}\n\n.create-shirt__pricelabel___99Dn_ {\n\tfont-size: 1.5em;\n}\n", ""]);
+	exports.push([module.id, ".create-shirt__container___26FCQ {\n  margin: 0 40px 0 40px;\n  background-color: rgb(247, 247, 247);\n}\n\ncanvas {\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);\n}\n\n.create-shirt__productlist___Qqfcu {\n  margin-top: 10px;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.create-shirt__productcard___EfLyf {\n  width: 150px;\n  min-width: 150px;\n  height: 150px;\n  margin: auto;\n  cursor: pointer;\n  margin: 10px 10px 0 0;\n}\n\n.create-shirt__label___oIT_B {\n  font-size: 0.7em;\n  font-weight: bold;\n}\n\n.create-shirt__cardacton___1B93g {\n  background: rgba(0,0,0,0.3);\n  color: #fff;\n  font-size: 14px;\n  font-weight: 500;\n}\n\n.create-shirt__actionarea___25AVw {\n  position: relative;\n  margin: 40px 40px 0 40px;\n}\n.create-shirt__actionbutton___2lr_z {\n  position: absolute;\n  right: 0;\n}\n\n.create-shirt__orderform___36amp {\n  margin-top: 10%;\n}\n\n.create-shirt__pricelabel___99Dn_ {\n  font-size: 1.5em;\n}\n", ""]);
 
 	// exports
 	exports.locals = {
@@ -48567,7 +48553,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
 
@@ -48598,125 +48584,125 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var LeftPanel = (_dec = (0, _reactRedux.connect)(function (state) {
-		return {
-			products: state.entities.products,
-			order: state.ui.createOrder.order
-		};
+	  return {
+	    products: state.entities.products,
+	    order: state.ui.createOrder.order
+	  };
 	}, function (dispatch) {
-		return {
-			toggleProductModel: function toggleProductModel() {
-				dispatch(_action.toggleProductModel);
-			},
-			fetchProducts: function fetchProducts() {
-				dispatch((0, _action.fetchProducts)());
-			}
-		};
+	  return {
+	    toggleProductModel: function toggleProductModel() {
+	      dispatch(_action.toggleProductModel);
+	    },
+	    fetchProducts: function fetchProducts() {
+	      dispatch((0, _action.fetchProducts)());
+	    }
+	  };
 	}), _dec(_class = function (_React$Component) {
-		_inherits(LeftPanel, _React$Component);
+	  _inherits(LeftPanel, _React$Component);
 
-		function LeftPanel() {
-			var _ref;
+	  function LeftPanel() {
+	    var _ref;
 
-			var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-			_classCallCheck(this, LeftPanel);
+	    _classCallCheck(this, LeftPanel);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LeftPanel.__proto__ || Object.getPrototypeOf(LeftPanel)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectProduct = function (e) {
-				e.preventDefault();
-				_this.props.toggleProductModel();
-			}, _this.handleSelectDesign = function (e) {
-				e.preventDefault();
-				console.log('select design');
-			}, _this.handleAddText = function (e) {
-				e.preventDefault();
-				console.log('add text');
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LeftPanel.__proto__ || Object.getPrototypeOf(LeftPanel)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectProduct = function (e) {
+	      e.preventDefault();
+	      _this.props.toggleProductModel();
+	    }, _this.handleSelectDesign = function (e) {
+	      e.preventDefault();
+	      console.log('select design');
+	    }, _this.handleAddText = function (e) {
+	      e.preventDefault();
+	      console.log('add text');
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-		_createClass(LeftPanel, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.fetchProducts();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var product = this.props.products[this.props.order.productId];
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h5',
-						null,
-						product.name
-					),
-					_react2.default.createElement(
-						_reactMdl.List,
-						null,
-						_react2.default.createElement(
-							_reactMdl.ListItem,
-							null,
-							_react2.default.createElement(
-								'label',
-								{ className: _createShirt2.default.label },
-								_react2.default.createElement(
-									_reactMdl.FABButton,
-									{ onClick: this.handleSelectProduct, mini: true, name: 'select-product' },
-									_react2.default.createElement(_reactMdl.Icon, { name: 'collections' })
-								),
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'select-product' },
-									' \u9009\u62E9\u4EA7\u54C1 '
-								)
-							)
-						),
-						_react2.default.createElement(
-							_reactMdl.ListItem,
-							null,
-							_react2.default.createElement(
-								'label',
-								{ className: _createShirt2.default.label },
-								_react2.default.createElement(
-									_reactMdl.FABButton,
-									{ onClick: this.handleSelectDesign, mini: true, name: 'select-design' },
-									_react2.default.createElement(_reactMdl.Icon, { name: 'insert_photo' })
-								),
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'select-design' },
-									' \u9009\u62E9\u8BBE\u8BA1 '
-								)
-							)
-						),
-						_react2.default.createElement(
-							_reactMdl.ListItem,
-							null,
-							_react2.default.createElement(
-								'label',
-								{ className: _createShirt2.default.label },
-								_react2.default.createElement(
-									_reactMdl.FABButton,
-									{ onClick: this.handleAddText, mini: true, name: 'add-text' },
-									_react2.default.createElement(_reactMdl.Icon, { name: 'title' })
-								),
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'add-text' },
-									' \u6DFB\u52A0\u6587\u5B57 '
-								)
-							)
-						)
-					)
-				);
-			}
-		}]);
+	  _createClass(LeftPanel, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchProducts();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var product = this.props.products[this.props.order.productId];
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h5',
+	          null,
+	          product.name
+	        ),
+	        _react2.default.createElement(
+	          _reactMdl.List,
+	          null,
+	          _react2.default.createElement(
+	            _reactMdl.ListItem,
+	            null,
+	            _react2.default.createElement(
+	              'label',
+	              { className: _createShirt2.default.label },
+	              _react2.default.createElement(
+	                _reactMdl.FABButton,
+	                { onClick: this.handleSelectProduct, mini: true, name: 'select-product' },
+	                _react2.default.createElement(_reactMdl.Icon, { name: 'collections' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'select-product' },
+	                ' \u9009\u62E9\u4EA7\u54C1 '
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactMdl.ListItem,
+	            null,
+	            _react2.default.createElement(
+	              'label',
+	              { className: _createShirt2.default.label },
+	              _react2.default.createElement(
+	                _reactMdl.FABButton,
+	                { onClick: this.handleSelectDesign, mini: true, name: 'select-design' },
+	                _react2.default.createElement(_reactMdl.Icon, { name: 'insert_photo' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'select-design' },
+	                ' \u9009\u62E9\u8BBE\u8BA1 '
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactMdl.ListItem,
+	            null,
+	            _react2.default.createElement(
+	              'label',
+	              { className: _createShirt2.default.label },
+	              _react2.default.createElement(
+	                _reactMdl.FABButton,
+	                { onClick: this.handleAddText, mini: true, name: 'add-text' },
+	                _react2.default.createElement(_reactMdl.Icon, { name: 'title' })
+	              ),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'add-text' },
+	                ' \u6DFB\u52A0\u6587\u5B57 '
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return LeftPanel;
+	  return LeftPanel;
 	}(_react2.default.Component)) || _class);
 	exports.default = LeftPanel;
 
@@ -50959,13 +50945,23 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
-	exports.addToCart = exports.fetchProducts = exports.updateOrder = exports.toggleProductModel = exports.ADD_TO_CART = exports.REPLACE_PRODUCTS = exports.FINISH_FETCH_PRODUCT = exports.START_FETCH_PRODUCT = exports.UPDATE_ORDER = exports.TOGGLE_PRODUCT_MODEL = undefined;
+	exports.removeItemFromCart = exports.updateCartItem = exports.addToCart = exports.fetchProducts = exports.updateOrder = exports.toggleProductModel = exports.REMOVE_ITEM_FROM_CART = exports.UPDATE_CART_ITEM = exports.ADD_TO_CART = exports.REPLACE_PRODUCTS = exports.FINISH_FETCH_PRODUCT = exports.START_FETCH_PRODUCT = exports.UPDATE_ORDER = exports.TOGGLE_PRODUCT_MODEL = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _lodash = __webpack_require__(299);
 
 	var _validation = __webpack_require__(300);
+
+	var _v = __webpack_require__(301);
+
+	var _v2 = _interopRequireDefault(_v);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL';
 	var UPDATE_ORDER = 'UPDATE_ORDER';
@@ -50973,60 +50969,91 @@
 	var FINISH_FETCH_PRODUCT = 'FINISH_FETCH_PRODUCT';
 	var REPLACE_PRODUCTS = 'REPLACE_PRODUCTS';
 	var ADD_TO_CART = 'ADD_TO_CART';
+	var UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
+	var REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
 
 	var startFetchProduct = {
-		type: START_FETCH_PRODUCT
+	  type: START_FETCH_PRODUCT
 	};
 
 	var finishFetchProduct = {
-		type: FINISH_FETCH_PRODUCT
+	  type: FINISH_FETCH_PRODUCT
 	};
 
 	var toggleProductModel = {
-		type: TOGGLE_PRODUCT_MODEL
+	  type: TOGGLE_PRODUCT_MODEL
 	};
 
+	function updateCartItem(payload) {
+	  return function (dispatch, getState) {
+	    if ((0, _lodash.isEmpty)((0, _validation.validateOrder)(payload))) {
+	      var newCart = _extends({}, getState().entities.cart, _defineProperty({}, payload.id, payload));
+	      localStorage.setItem('myf_cart', JSON.stringify(newCart));
+	    }
+	    dispatch({
+	      type: UPDATE_CART_ITEM,
+	      payload: payload
+	    });
+	  };
+	}
+
+	function removeItemFromCart(payload) {
+	  return function (dispatch, getState) {
+	    var id = payload;
+	    var newCart = (0, _lodash.pickBy)(getState().entities.cart, function (order) {
+	      return order.id !== id;
+	    });
+	    localStorage.setItem('myf_cart', JSON.stringify(newCart));
+	    dispatch({
+	      type: REMOVE_ITEM_FROM_CART,
+	      payload: payload
+	    });
+	  };
+	}
+
 	function addToCart(payload) {
-		return function (dispatch, getState) {
-			if ((0, _lodash.isEmpty)((0, _validation.validateOrder)(payload))) {
-				var newCart = getState().entities.cart.concat(payload);
-				localStorage.setItem('myf_cart', JSON.stringify(newCart));
-			}
-			dispatch({
-				type: ADD_TO_CART,
-				payload: payload
-			});
-		};
+	  return function (dispatch, getState) {
+	    var id = (0, _v2.default)();
+	    payload.id = id;
+	    if ((0, _lodash.isEmpty)((0, _validation.validateOrder)(payload))) {
+	      var newCart = _extends({}, getState().entities.cart, _defineProperty({}, id, payload));
+	      localStorage.setItem('myf_cart', JSON.stringify(newCart));
+	    }
+	    dispatch({
+	      type: ADD_TO_CART,
+	      payload: payload
+	    });
+	  };
 	}
 
 	function updateOrder(payload) {
-		return {
-			type: UPDATE_ORDER,
-			payload: payload
-		};
+	  return {
+	    type: UPDATE_ORDER,
+	    payload: payload
+	  };
 	}
 
 	function replaceProducts(payload) {
-		return {
-			type: REPLACE_PRODUCTS,
-			payload: payload
-		};
+	  return {
+	    type: REPLACE_PRODUCTS,
+	    payload: payload
+	  };
 	}
 
 	function fetchProducts() {
-		return function (dispatch, getState) {
-			var state = getState();
-			if (!state.fetchStatus.isFetchingProduct && (0, _lodash.isEmpty)(state.entities.products)) {
-				dispatch(startFetchProduct);
-				// fetch('/product.json') // uncomment this when running locally
-				fetch('/makeyourfashion-web/product.json').then(function (res) {
-					return res.json();
-				}).then(function (procuts) {
-					dispatch(replaceProducts(procuts));
-					dispatch(finishFetchProduct);
-				});
-			}
-		};
+	  return function (dispatch, getState) {
+	    var state = getState();
+	    if (!state.fetchStatus.isFetchingProduct && (0, _lodash.isEmpty)(state.entities.products)) {
+	      dispatch(startFetchProduct);
+	      // fetch('/product.json') // uncomment this when running locally
+	      fetch('/makeyourfashion-web/product.json').then(function (res) {
+	        return res.json();
+	      }).then(function (procuts) {
+	        dispatch(replaceProducts(procuts));
+	        dispatch(finishFetchProduct);
+	      });
+	    }
+	  };
 	}
 
 	exports.TOGGLE_PRODUCT_MODEL = TOGGLE_PRODUCT_MODEL;
@@ -51035,10 +51062,14 @@
 	exports.FINISH_FETCH_PRODUCT = FINISH_FETCH_PRODUCT;
 	exports.REPLACE_PRODUCTS = REPLACE_PRODUCTS;
 	exports.ADD_TO_CART = ADD_TO_CART;
+	exports.UPDATE_CART_ITEM = UPDATE_CART_ITEM;
+	exports.REMOVE_ITEM_FROM_CART = REMOVE_ITEM_FROM_CART;
 	exports.toggleProductModel = toggleProductModel;
 	exports.updateOrder = updateOrder;
 	exports.fetchProducts = fetchProducts;
 	exports.addToCart = addToCart;
+	exports.updateCartItem = updateCartItem;
+	exports.removeItemFromCart = removeItemFromCart;
 
 /***/ },
 /* 299 */
@@ -68138,41 +68169,145 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.validateOrder = validateOrder;
 	exports.validateOrderWhenPresent = validateOrderWhenPresent;
 	function validateOrder(order) {
-		var errors = {};
-		if (order.qty <= 0) {
-			errors['qty'] = '请选择至少一件商品';
-		}
-		if (order.productId === undefined || order.productId === null) {
-			errors['productId'] = '请选择产品';
-		}
-		if (order.size === undefined || order.size === null) {
-			errors['size'] = '请选择尺码';
-		}
-		return errors;
+	  var errors = {};
+	  if (order.qty <= 0) {
+	    errors['qty'] = '请选择至少一件商品';
+	  }
+	  if (order.productId === undefined || order.productId === null) {
+	    errors['productId'] = '请选择产品';
+	  }
+	  if (order.size === undefined || order.size === null) {
+	    errors['size'] = '请选择尺码';
+	  }
+	  return errors;
 	}
 
 	function validateOrderWhenPresent(order) {
-		var errors = {};
-		if (order.qty <= 0) {
-			errors['qty'] = '请选择至少一件商品';
-		}
+	  var errors = {};
+	  if (order.qty <= 0) {
+	    errors['qty'] = '请选择至少一件商品';
+	  }
 
-		return errors;
+	  return errors;
 	}
 
 /***/ },
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var rng = __webpack_require__(302);
+	var bytesToUuid = __webpack_require__(303);
+
+	function v4(options, buf, offset) {
+	  var i = buf && offset || 0;
+
+	  if (typeof(options) == 'string') {
+	    buf = options == 'binary' ? new Array(16) : null;
+	    options = null;
+	  }
+	  options = options || {};
+
+	  var rnds = options.random || (options.rng || rng)();
+
+	  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+	  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+	  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+	  // Copy bytes to buffer, if provided
+	  if (buf) {
+	    for (var ii = 0; ii < 16; ++ii) {
+	      buf[i + ii] = rnds[ii];
+	    }
+	  }
+
+	  return buf || bytesToUuid(rnds);
+	}
+
+	module.exports = v4;
+
+
+/***/ },
+/* 302 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
+	// browser this is a little complicated due to unknown quality of Math.random()
+	// and inconsistent support for the `crypto` API.  We do the best we can via
+	// feature-detection
+	var rng;
+
+	var crypto = global.crypto || global.msCrypto; // for IE 11
+	if (crypto && crypto.getRandomValues) {
+	  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+	  var rnds8 = new Uint8Array(16);
+	  rng = function whatwgRNG() {
+	    crypto.getRandomValues(rnds8);
+	    return rnds8;
+	  };
+	}
+
+	if (!rng) {
+	  // Math.random()-based (RNG)
+	  //
+	  // If all else fails, use Math.random().  It's fast, but is of unspecified
+	  // quality.
+	  var  rnds = new Array(16);
+	  rng = function() {
+	    for (var i = 0, r; i < 16; i++) {
+	      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+	      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+	    }
+
+	    return rnds;
+	  };
+	}
+
+	module.exports = rng;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 303 */
+/***/ function(module, exports) {
+
+	/**
+	 * Convert array of 16 byte values to UUID string format of the form:
+	 * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+	 */
+	var byteToHex = [];
+	for (var i = 0; i < 256; ++i) {
+	  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+	}
+
+	function bytesToUuid(buf, offset) {
+	  var i = offset || 0;
+	  var bth = byteToHex;
+	  return  bth[buf[i++]] + bth[buf[i++]] +
+	          bth[buf[i++]] + bth[buf[i++]] + '-' +
+	          bth[buf[i++]] + bth[buf[i++]] + '-' +
+	          bth[buf[i++]] + bth[buf[i++]] + '-' +
+	          bth[buf[i++]] + bth[buf[i++]] + '-' +
+	          bth[buf[i++]] + bth[buf[i++]] +
+	          bth[buf[i++]] + bth[buf[i++]] +
+	          bth[buf[i++]] + bth[buf[i++]];
+	}
+
+	module.exports = bytesToUuid;
+
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
 
@@ -68186,7 +68321,7 @@
 
 	var _reactMdl = __webpack_require__(193);
 
-	var _ProductCard = __webpack_require__(302);
+	var _ProductCard = __webpack_require__(305);
 
 	var _ProductCard2 = _interopRequireDefault(_ProductCard);
 
@@ -68200,7 +68335,7 @@
 
 	var _action = __webpack_require__(298);
 
-	var _Modal = __webpack_require__(303);
+	var _Modal = __webpack_require__(306);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -68213,112 +68348,112 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var SelectProduct = (_dec = (0, _reactRedux.connect)(function (state) {
-		return {
-			open: state.ui.createOrder.isProductModelOpen,
-			categories: state.entities.categories,
-			products: state.entities.products
-		};
+	  return {
+	    open: state.ui.createOrder.isProductModelOpen,
+	    categories: state.entities.categories,
+	    products: state.entities.products
+	  };
 	}, function (dispatch) {
-		return {
-			toggleProductModel: function toggleProductModel() {
-				dispatch(_action.toggleProductModel);
-			},
-			fetchProducts: function fetchProducts() {
-				dispatch((0, _action.fetchProducts)());
-			}
-		};
+	  return {
+	    toggleProductModel: function toggleProductModel() {
+	      dispatch(_action.toggleProductModel);
+	    },
+	    fetchProducts: function fetchProducts() {
+	      dispatch((0, _action.fetchProducts)());
+	    }
+	  };
 	}), _dec(_class = function (_React$Component) {
-		_inherits(SelectProduct, _React$Component);
+	  _inherits(SelectProduct, _React$Component);
 
-		function SelectProduct(props) {
-			_classCallCheck(this, SelectProduct);
+	  function SelectProduct(props) {
+	    _classCallCheck(this, SelectProduct);
 
-			var _this = _possibleConstructorReturn(this, (SelectProduct.__proto__ || Object.getPrototypeOf(SelectProduct)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SelectProduct.__proto__ || Object.getPrototypeOf(SelectProduct)).call(this, props));
 
-			_this.handleTabChange = function (id) {
-				if (id !== _this.state.activeTab) {
-					_this.setState({
-						activeTab: id
-					});
-				}
-			};
+	    _this.handleTabChange = function (id) {
+	      if (id !== _this.state.activeTab) {
+	        _this.setState({
+	          activeTab: id
+	        });
+	      }
+	    };
 
-			_this.handleToggleProductModel = function (e) {
-				e.preventDefault();
-				_this.props.toggleProductModel();
-			};
+	    _this.handleToggleProductModel = function (e) {
+	      e.preventDefault();
+	      _this.props.toggleProductModel();
+	    };
 
-			_this.state = {
-				activeTab: 0
-			};
-			return _this;
-		}
+	    _this.state = {
+	      activeTab: 0
+	    };
+	    return _this;
+	  }
 
-		_createClass(SelectProduct, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.fetchProducts();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
+	  _createClass(SelectProduct, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchProducts();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 
-				var categories = (0, _lodash.values)(this.props.categories);
-				var products = (0, _lodash.values)(this.props.products);
-				var activeProducts = void 0;
-				if (this.state.activeTab === 0) {
-					// search for all products
-					activeProducts = (0, _lodash.values)(this.props.products);
-				} else {
-					// TODO: better way to filter?
-					activeProducts = (0, _lodash.values)(this.props.products).filter(function (p) {
-						return p.category === _this2.state.activeTab - 1;
-					});
-				}
+	      var categories = (0, _lodash.values)(this.props.categories);
+	      var products = (0, _lodash.values)(this.props.products);
+	      var activeProducts = void 0;
+	      if (this.state.activeTab === 0) {
+	        // search for all products
+	        activeProducts = (0, _lodash.values)(this.props.products);
+	      } else {
+	        // TODO: better way to filter?
+	        activeProducts = (0, _lodash.values)(this.props.products).filter(function (p) {
+	          return p.category === _this2.state.activeTab - 1;
+	        });
+	      }
 
-				return _react2.default.createElement(
-					_Modal2.default,
-					{ onCloseModal: this.handleToggleProductModel, open: this.props.open },
-					_react2.default.createElement(
-						_reactMdl.Tabs,
-						{ activeTab: this.state.activeTab, onChange: this.handleTabChange, ripple: true },
-						_react2.default.createElement(
-							_reactMdl.Tab,
-							null,
-							'\u5168\u90E8'
-						),
-						categories.map(function (category, index) {
-							return _react2.default.createElement(
-								_reactMdl.Tab,
-								{ key: index },
-								category
-							);
-						})
-					),
-					_react2.default.createElement(
-						'section',
-						{ className: _createShirt2.default.productlist },
-						activeProducts.map(function (product) {
-							return _react2.default.createElement(_ProductCard2.default, { onSelect: _this2.handleToggleProductModel, product: product });
-						})
-					)
-				);
-			}
-		}]);
+	      return _react2.default.createElement(
+	        _Modal2.default,
+	        { onCloseModal: this.handleToggleProductModel, open: this.props.open },
+	        _react2.default.createElement(
+	          _reactMdl.Tabs,
+	          { activeTab: this.state.activeTab, onChange: this.handleTabChange, ripple: true },
+	          _react2.default.createElement(
+	            _reactMdl.Tab,
+	            null,
+	            '\u5168\u90E8'
+	          ),
+	          categories.map(function (category, index) {
+	            return _react2.default.createElement(
+	              _reactMdl.Tab,
+	              { key: index },
+	              category
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'section',
+	          { className: _createShirt2.default.productlist },
+	          activeProducts.map(function (product) {
+	            return _react2.default.createElement(_ProductCard2.default, { onSelect: _this2.handleToggleProductModel, product: product });
+	          })
+	        )
+	      );
+	    }
+	  }]);
 
-		return SelectProduct;
+	  return SelectProduct;
 	}(_react2.default.Component)) || _class);
 	exports.default = SelectProduct;
 
 /***/ },
-/* 302 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
 
@@ -68349,74 +68484,74 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ProductCard = (_dec = (0, _reactRedux.connect)(null, function (dispatch) {
-		return {
-			updateOrder: function updateOrder(order) {
-				dispatch((0, _action.updateOrder)(order));
-			}
-		};
+	  return {
+	    updateOrder: function updateOrder(order) {
+	      dispatch((0, _action.updateOrder)(order));
+	    }
+	  };
 	}), _dec(_class = function (_React$Component) {
-		_inherits(ProductCard, _React$Component);
+	  _inherits(ProductCard, _React$Component);
 
-		function ProductCard() {
-			var _ref;
+	  function ProductCard() {
+	    var _ref;
 
-			var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-			_classCallCheck(this, ProductCard);
+	    _classCallCheck(this, ProductCard);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProductCard.__proto__ || Object.getPrototypeOf(ProductCard)).call.apply(_ref, [this].concat(args))), _this), _this.handleProductSelect = function (e) {
-				_this.props.updateOrder({
-					productId: _this.props.product.id
-				});
-				_this.props.onSelect && _this.props.onSelect(e);
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProductCard.__proto__ || Object.getPrototypeOf(ProductCard)).call.apply(_ref, [this].concat(args))), _this), _this.handleProductSelect = function (e) {
+	      _this.props.updateOrder({
+	        productId: _this.props.product.id
+	      });
+	      _this.props.onSelect && _this.props.onSelect(e);
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-		_createClass(ProductCard, [{
-			key: 'render',
-			value: function render() {
-				var product = this.props.product;
+	  _createClass(ProductCard, [{
+	    key: 'render',
+	    value: function render() {
+	      var product = this.props.product;
 
-				return _react2.default.createElement(
-					_reactMdl.Card,
-					{ onClick: this.handleProductSelect, shadow: 0, className: _createShirt2.default.productcard, style: { background: 'url(' + product.imgUrl + ') center / cover' } },
-					_react2.default.createElement(_reactMdl.CardTitle, { expand: true }),
-					_react2.default.createElement(
-						_reactMdl.CardActions,
-						{ className: _createShirt2.default.cardacton },
-						_react2.default.createElement(
-							'span',
-							null,
-							product.name
-						)
-					)
-				);
-			}
-		}]);
+	      return _react2.default.createElement(
+	        _reactMdl.Card,
+	        { onClick: this.handleProductSelect, shadow: 0, className: _createShirt2.default.productcard, style: { background: 'url(' + product.imgUrl + ') center / cover' } },
+	        _react2.default.createElement(_reactMdl.CardTitle, { expand: true }),
+	        _react2.default.createElement(
+	          _reactMdl.CardActions,
+	          { className: _createShirt2.default.cardacton },
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            product.name
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return ProductCard;
+	  return ProductCard;
 	}(_react2.default.Component)) || _class);
 	exports.default = ProductCard;
 
 /***/ },
-/* 303 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+	    value: true
 	});
 
 	var _react = __webpack_require__(7);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _main = __webpack_require__(304);
+	var _main = __webpack_require__(307);
 
 	var _main2 = _interopRequireDefault(_main);
 
@@ -68425,31 +68560,31 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Modal = function Modal(_ref) {
-			var onCloseModal = _ref.onCloseModal,
-			    open = _ref.open,
-			    children = _ref.children;
-			return _react2.default.createElement(
-					_reactMdl.Dialog,
-					{ className: _main2.default.modal, onCancel: onCloseModal, open: open },
-					children,
-					_react2.default.createElement(
-							_reactMdl.FABButton,
-							{ onClick: onCloseModal, className: _main2.default.closemodal, mini: true, colored: true },
-							_react2.default.createElement(_reactMdl.Icon, { name: 'close' })
-					)
-			);
+	    var onCloseModal = _ref.onCloseModal,
+	        open = _ref.open,
+	        children = _ref.children;
+	    return _react2.default.createElement(
+	        _reactMdl.Dialog,
+	        { className: _main2.default.modal, onCancel: onCloseModal, open: open },
+	        children,
+	        _react2.default.createElement(
+	            _reactMdl.FABButton,
+	            { onClick: onCloseModal, className: _main2.default.closemodal, mini: true, colored: true },
+	            _react2.default.createElement(_reactMdl.Icon, { name: 'close' })
+	        )
+	    );
 	};
 
 	exports.default = Modal;
 
 /***/ },
-/* 304 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(305);
+	var content = __webpack_require__(308);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(191)(content, {});
@@ -68469,7 +68604,7 @@
 	}
 
 /***/ },
-/* 305 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(186)(undefined);
@@ -68477,23 +68612,32 @@
 
 
 	// module
-	exports.push([module.id, ".main__modal___1O4v4 {\n\twidth: 80%;\n\tposition: relative;\n}\n\n.main__closemodal___3cK9u {\n\tposition: absolute;\n\ttop: -20px;\n\tright: -20px;\n\theight: 40px !important;\n\twidth: 40px !important;\n\tmin-width: 40px !important;\n}\n\n.main__error___3pF6i {\n\tcolor: #d50000;\n  position: absolute;\n  font-size: 12px;\n  margin-top: 3px;\n  display: block;\n}\n", ""]);
+	exports.push([module.id, ".main__modal___1O4v4 {\n  width: 80%;\n  position: relative;\n}\n\n.main__closemodal___3cK9u {\n  position: absolute;\n  top: -20px;\n  right: -20px;\n  height: 40px !important;\n  width: 40px !important;\n  min-width: 40px !important;\n}\n\n.main__error___3pF6i {\n  color: #d50000;\n  position: absolute;\n  font-size: 12px;\n  margin-top: 3px;\n  display: block;\n}\n\n.main__cartitem___WDay3 .main__img___3cHvg {\n  width: 180px;\n  height: 180px;\n}\n\n.main__dropdown___3rp7P {\n  margin-top: 20px;\n}\n\n.main__dropdownbutton___2GMp1 {\n  min-width: 130px;\n  text-align: left;\n}\n\n.main__arrowicon___13GVR {\n  float: right;\n}\n\n.main__cartitem___WDay3 {\n  height: 100%;\n  cursor: auto;\n  display: flex;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #ddd;\n}\n\n.main__cartitem___WDay3 h6 {\n  color: #00b2a6;\n  margin: 0px 10px 0 0;\n}\n\n.main__cartitem___WDay3 .main__description___4HYUB {\n  min-width: 200px;\n  padding-left: 20px;\n  font-size: 0.9em;\n}\n\n.main__cartmenu___3L1p8 {\n  background: #fff;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);\n  position: absolute;\n  z-index: 999;\n  right: 200px;\n  width: 370px;\n  min-height: 200px;\n  overflow: scroll;\n}\n\n.main__pricelabel___1-sLV {\n  font-size: 1.2em;\n  margin-top: 10px;\n}\n\n.main__actionsection___cELyD {\n  margin: 20px 20px 20px 20px;\n}\n\n.main__actionsection___cELyD a {\n  margin: auto;\n  width: 90% !important\n}\n", ""]);
 
 	// exports
 	exports.locals = {
 		"modal": "main__modal___1O4v4",
 		"closemodal": "main__closemodal___3cK9u",
-		"error": "main__error___3pF6i"
+		"error": "main__error___3pF6i",
+		"cartitem": "main__cartitem___WDay3",
+		"img": "main__img___3cHvg",
+		"dropdown": "main__dropdown___3rp7P",
+		"dropdownbutton": "main__dropdownbutton___2GMp1",
+		"arrowicon": "main__arrowicon___13GVR",
+		"description": "main__description___4HYUB",
+		"cartmenu": "main__cartmenu___3L1p8",
+		"pricelabel": "main__pricelabel___1-sLV",
+		"actionsection": "main__actionsection___cELyD"
 	};
 
 /***/ },
-/* 306 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
 
@@ -68505,7 +68649,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Dropdown = __webpack_require__(307);
+	var _Dropdown = __webpack_require__(310);
 
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 
@@ -68521,6 +68665,8 @@
 
 	var _createShirt2 = _interopRequireDefault(_createShirt);
 
+	var _localize = __webpack_require__(311);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68529,101 +68675,85 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SIZE_LOCALIZE_MAP = {
-		small: '小号',
-		medium: '中号',
-		large: '大号'
-	};
-
 	var OrderForm = (_dec = (0, _reactRedux.connect)(function (state) {
-		return {
-			order: state.ui.createOrder.order,
-			error: state.error.order
-		};
+	  return {
+	    order: state.ui.createOrder.order,
+	    error: state.error.order
+	  };
 	}, function (dispatch) {
-		return {
-			updateOrder: function updateOrder(order) {
-				dispatch((0, _action.updateOrder)(order));
-			}
-		};
+	  return {
+	    updateOrder: function updateOrder(order) {
+	      dispatch((0, _action.updateOrder)(order));
+	    }
+	  };
 	}), _dec(_class = function (_React$Component) {
-		_inherits(OrderForm, _React$Component);
+	  _inherits(OrderForm, _React$Component);
 
-		function OrderForm() {
-			var _ref;
+	  function OrderForm() {
+	    var _ref;
 
-			var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-			_classCallCheck(this, OrderForm);
+	    _classCallCheck(this, OrderForm);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = OrderForm.__proto__ || Object.getPrototypeOf(OrderForm)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectSize = function (text) {
-				_this.props.updateOrder({
-					size: (0, _lodash.findKey)(SIZE_LOCALIZE_MAP, function (v) {
-						return v === text;
-					})
-				});
-			}, _this.handleEnterQty = function (e) {
-				if (e.target.value) {
-					_this.props.updateOrder({
-						qty: +e.target.value
-					});
-				} else {
-					_this.props.updateOrder({
-						qty: null
-					});
-				}
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = OrderForm.__proto__ || Object.getPrototypeOf(OrderForm)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectSize = function (text) {
+	      _this.props.updateOrder({
+	        size: (0, _lodash.findKey)(_localize.SIZE_LOCALIZE_MAP, function (v) {
+	          return v === text;
+	        })
+	      });
+	    }, _this.handleSelectQty = function (text) {
+	      _this.props.updateOrder({
+	        qty: +text
+	      });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-		_createClass(OrderForm, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'form',
-					{ className: _createShirt2.default.orderform },
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							'label',
-							{ className: _createShirt2.default.pricelabel },
-							'\xA5 ' + this.props.order.price.toFixed(2)
-						)
-					),
-					_react2.default.createElement(_reactMdl.Textfield, {
-						error: this.props.error.qty,
-						onChange: this.handleEnterQty,
-						type: 'number',
-						value: this.props.order.qty,
-						label: '\u6570\u91CF',
-						floatingLabel: true,
-						style: { width: '200px' }
-					}),
-					_react2.default.createElement(_Dropdown2.default, { label: '\u5C3A\u7801', id: 'select-size',
-						value: SIZE_LOCALIZE_MAP[this.props.order.size],
-						onSelect: this.handleSelectSize,
-						items: (0, _lodash.values)(SIZE_LOCALIZE_MAP),
-						error: this.props.error.size })
-				);
-			}
-		}]);
+	  _createClass(OrderForm, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        { className: _createShirt2.default.orderform },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'label',
+	            { className: _createShirt2.default.pricelabel },
+	            '\xA5 ' + this.props.order.price.toFixed(2)
+	          )
+	        ),
+	        _react2.default.createElement(_Dropdown2.default, { label: '\u6570\u91CF', id: 'select-qty',
+	          value: this.props.order.qty,
+	          onSelect: this.handleSelectQty,
+	          items: (0, _lodash.range)(1, 13),
+	          error: this.props.error.qty }),
+	        _react2.default.createElement(_Dropdown2.default, { label: '\u5C3A\u7801', id: 'select-size',
+	          value: _localize.SIZE_LOCALIZE_MAP[this.props.order.size],
+	          onSelect: this.handleSelectSize,
+	          items: (0, _lodash.values)(_localize.SIZE_LOCALIZE_MAP),
+	          error: this.props.error.size })
+	      );
+	    }
+	  }]);
 
-		return OrderForm;
+	  return OrderForm;
 	}(_react2.default.Component)) || _class);
 	exports.default = OrderForm;
 
 /***/ },
-/* 307 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	exports.default = undefined;
 
@@ -68633,7 +68763,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _main = __webpack_require__(304);
+	var _main = __webpack_require__(307);
 
 	var _main2 = _interopRequireDefault(_main);
 
@@ -68648,72 +68778,96 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Dropdown = function (_React$Component) {
-		_inherits(Dropdown, _React$Component);
+	  _inherits(Dropdown, _React$Component);
 
-		function Dropdown() {
-			var _ref;
+	  function Dropdown() {
+	    var _ref;
 
-			var _temp, _this, _ret;
+	    var _temp, _this, _ret;
 
-			_classCallCheck(this, Dropdown);
+	    _classCallCheck(this, Dropdown);
 
-			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-				args[_key] = arguments[_key];
-			}
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelect = function (e) {
-				e.preventDefault();
-				_this.props.onSelect(e.target.innerHTML);
-			}, _this.handleButtonClick = function (e) {
-				e.preventDefault();
-			}, _temp), _possibleConstructorReturn(_this, _ret);
-		}
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelect = function (e) {
+	      e.preventDefault();
+	      _this.props.onSelect(e.target.innerHTML);
+	    }, _this.handleButtonClick = function (e) {
+	      e.preventDefault();
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-		_createClass(Dropdown, [{
-			key: 'render',
-			value: function render() {
-				var _props = this.props,
-				    label = _props.label,
-				    items = _props.items,
-				    id = _props.id,
-				    error = _props.error;
+	  _createClass(Dropdown, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          label = _props.label,
+	          items = _props.items,
+	          id = _props.id,
+	          error = _props.error,
+	          props = _props.props;
 
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						_reactMdl.Button,
-						{ onClick: this.handleButtonClick, raised: true, colored: true, id: id },
-						label + ': ' + (this.props.value || ''),
-						_react2.default.createElement(_reactMdl.Icon, { name: 'keyboard_arrow_down' })
-					),
-					_react2.default.createElement(
-						'span',
-						{ className: _main2.default.error },
-						error
-					),
-					_react2.default.createElement(
-						_reactMdl.Menu,
-						{ onClick: this.handleSelect, target: id },
-						items.map(function (item, index) {
-							return _react2.default.createElement(
-								_reactMdl.MenuItem,
-								{ key: index },
-								item
-							);
-						})
-					)
-				);
-			}
-		}]);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _main2.default.dropdown },
+	        _react2.default.createElement(
+	          _reactMdl.Button,
+	          { mdPreventMenuClose: true, className: _main2.default.dropdownbutton, onClick: this.handleButtonClick, raised: true, colored: true, id: id },
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            label + ': ' + (this.props.value || '')
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: _main2.default.arrowicon },
+	            _react2.default.createElement(_reactMdl.Icon, { name: 'keyboard_arrow_down' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: _main2.default.error },
+	          error
+	        ),
+	        _react2.default.createElement(
+	          _reactMdl.Menu,
+	          { onClick: this.handleSelect, target: id },
+	          items.map(function (item, index) {
+	            return _react2.default.createElement(
+	              _reactMdl.MenuItem,
+	              { key: index },
+	              item
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
 
-		return Dropdown;
+	  return Dropdown;
 	}(_react2.default.Component);
 
 	exports.default = Dropdown;
 
 /***/ },
-/* 308 */
+/* 311 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var SIZE_LOCALIZE_MAP = exports.SIZE_LOCALIZE_MAP = {
+		small: '小号',
+		medium: '中号',
+		large: '大号'
+	};
+
+/***/ },
+/* 312 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -68741,13 +68895,13 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 309 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -68760,130 +68914,361 @@
 
 	var _validation = __webpack_require__(300);
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var initialState = {
-		entities: {
-			categories: {
-				0: '男士',
-				1: '女士'
-			},
-			products: {},
-			cart: JSON.parse(localStorage.getItem('myf_cart') || '[]')
-		},
-		fetchStatus: {
-			isFetchingProduct: false
-		},
-		error: {},
-		ui: {
-			createOrder: {
-				order: {
-					size: null,
-					productId: 0,
-					qty: null,
-					price: 10
-				},
-				isProductModelOpen: false
-			}
-		}
+	  entities: {
+	    categories: {
+	      0: '男士',
+	      1: '女士'
+	    },
+	    products: {},
+	    cart: JSON.parse(localStorage.getItem('myf_cart') || '{}')
+	  },
+	  fetchStatus: {
+	    isFetchingProduct: false
+	  },
+	  error: {
+	    cart: {},
+	    order: {}
+	  },
+	  ui: {
+	    createOrder: {
+	      order: {
+	        size: null,
+	        productId: 0,
+	        qty: null,
+	        price: 10
+	      },
+	      isProductModelOpen: false
+	    }
+	  }
 	};
 
 	function fetchStatus() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.fetchStatus;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.fetchStatus;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			case _action.START_FETCH_PRODUCT:
-				return _extends({}, state, {
-					isFetchingProduct: true
-				});
-			case _action.FINISH_FETCH_PRODUCT:
-				return _extends({}, state, {
-					isFetchingProduct: false
-				});
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    case _action.START_FETCH_PRODUCT:
+	      return _extends({}, state, {
+	        isFetchingProduct: true
+	      });
+	    case _action.FINISH_FETCH_PRODUCT:
+	      return _extends({}, state, {
+	        isFetchingProduct: false
+	      });
+	    default:
+	      return state;
+	  }
 	}
 
 	function createOrder() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.ui.createOrder;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.ui.createOrder;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			case _action.TOGGLE_PRODUCT_MODEL:
-				return _extends({}, state, {
-					isProductModelOpen: !state.isProductModelOpen
-				});
-			case _action.UPDATE_ORDER:
-				return _extends({}, state, {
-					order: _extends({}, state.order, action.payload)
-				});
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    case _action.TOGGLE_PRODUCT_MODEL:
+	      return _extends({}, state, {
+	        isProductModelOpen: !state.isProductModelOpen
+	      });
+	    case _action.UPDATE_ORDER:
+	      return _extends({}, state, {
+	        order: _extends({}, state.order, action.payload)
+	      });
+	    default:
+	      return state;
+	  }
 	}
 
 	function error() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.ui.createOrder;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.error;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			case _action.UPDATE_ORDER:
-				return _extends({}, state, {
-					order: (0, _validation.validateOrderWhenPresent)(action.payload)
-				});
-			case _action.ADD_TO_CART:
-				return _extends({}, state, {
-					order: (0, _validation.validateOrder)(action.payload)
-				});
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    case _action.UPDATE_ORDER:
+	      return _extends({}, state, {
+	        order: (0, _validation.validateOrderWhenPresent)(action.payload)
+	      });
+	    case _action.ADD_TO_CART:
+	      return _extends({}, state, {
+	        order: (0, _validation.validateOrder)(action.payload)
+	      });
+	    case _action.UPDATE_CART_ITEM:
+	      return _extends({}, state, {
+	        cart: _extends({}, cart, _defineProperty({}, action.payload.id, (0, _validation.validateOrder)(action.payload)))
+	      });
+	    default:
+	      return state;
+	  }
 	}
 
 	function products() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.products;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.products;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			case _action.REPLACE_PRODUCTS:
-				return _extends({}, state, (0, _lodash.keyBy)(action.payload, 'id'));
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    case _action.REPLACE_PRODUCTS:
+	      return _extends({}, state, (0, _lodash.keyBy)(action.payload, 'id'));
+	    default:
+	      return state;
+	  }
 	}
 
 	function cart() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.cart;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.cart;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			case _action.ADD_TO_CART:
-				if ((0, _lodash.isEmpty)((0, _validation.validateOrder)(action.payload))) {
-					return [].concat(_toConsumableArray(state), [action.payload]);
-				} else {
-					return state;
-				}
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    case _action.ADD_TO_CART:
+	    case _action.UPDATE_CART_ITEM:
+	      if ((0, _lodash.isEmpty)((0, _validation.validateOrder)(action.payload))) {
+	        return _extends({}, state, _defineProperty({}, action.payload.id, action.payload));
+	      } else {
+	        return state;
+	      }
+	    case _action.REMOVE_ITEM_FROM_CART:
+	      return (0, _lodash.pickBy)(state, function (order) {
+	        return order.id !== action.payload;
+	      });
+	    default:
+	      return state;
+	  }
 	}
 
 	function categories() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.categories;
-		var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.entities.categories;
+	  var action = arguments[1];
 
-		switch (action.type) {
-			default:
-				return state;
-		}
+	  switch (action.type) {
+	    default:
+	      return state;
+	  }
 	}
 
 	var ui = (0, _redux.combineReducers)({ createOrder: createOrder });
 	var entities = (0, _redux.combineReducers)({ products: products, categories: categories, cart: cart });
 
 	exports.default = (0, _redux.combineReducers)({ entities: entities, ui: ui, fetchStatus: fetchStatus, error: error });
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class, _dec2, _class2;
+
+	var _react = __webpack_require__(7);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(261);
+
+	var _reactMdl = __webpack_require__(193);
+
+	var _lodash = __webpack_require__(299);
+
+	var _localize = __webpack_require__(311);
+
+	var _main = __webpack_require__(307);
+
+	var _main2 = _interopRequireDefault(_main);
+
+	var _Dropdown = __webpack_require__(310);
+
+	var _Dropdown2 = _interopRequireDefault(_Dropdown);
+
+	var _action = __webpack_require__(298);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CartItem = (_dec = (0, _reactRedux.connect)(function (state) {
+	  return {
+	    cart: state.entities.cart,
+	    products: state.entities.products,
+	    error: state.error.cart
+	  };
+	}, function (dispatch) {
+	  return {
+	    removeItemFromCart: function removeItemFromCart(id) {
+	      dispatch((0, _action.removeItemFromCart)(id));
+	    },
+	    fetchProducts: function fetchProducts() {
+	      dispatch((0, _action.fetchProducts)());
+	    },
+	    updateCartItem: function updateCartItem(order) {
+	      dispatch((0, _action.updateCartItem)(order));
+	    }
+	  };
+	}), _dec(_class = function (_React$Component) {
+	  _inherits(CartItem, _React$Component);
+
+	  function CartItem() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, CartItem);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CartItem.__proto__ || Object.getPrototypeOf(CartItem)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectQty = function (qtyString) {
+	      var qty = +qtyString;
+	      if (qty === 0) {
+	        _this.props.removeItemFromCart(_this.props.orderId);
+	      }
+
+	      _this.props.updateCartItem(_extends({}, _this.props.cart[_this.props.orderId], {
+	        qty: +qty
+	      }));
+	    }, _this.handleSelectSize = function (size) {
+	      _this.props.updateCartItem(_extends({}, _this.props.cart[_this.props.orderId], {
+	        size: (0, _lodash.findKey)(_localize.SIZE_LOCALIZE_MAP, function (v) {
+	          return v === size;
+	        })
+	      }));
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(CartItem, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchProducts();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var order = this.props.cart[this.props.orderId];
+	      var product = this.props.products[order.productId];
+	      var error = this.props.error[order.id] || {};
+	      return product ? _react2.default.createElement(
+	        'div',
+	        { key: order.id, className: _main2.default.cartitem },
+	        _react2.default.createElement('img', { className: _main2.default.img, src: order.imgUrl }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: _main2.default.description },
+	          _react2.default.createElement(
+	            'h6',
+	            null,
+	            product.name
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'label',
+	              { className: _main2.default.pricelabel },
+	              '\xA5 ' + (order.price * order.qty).toFixed(2)
+	            )
+	          ),
+	          _react2.default.createElement(_Dropdown2.default, { label: '\u6570\u91CF', id: 'shopping-cart-select-qty' + order.id,
+	            value: order.qty,
+	            onSelect: this.handleSelectQty,
+	            items: (0, _lodash.range)(0, 13),
+	            error: error.qty }),
+	          _react2.default.createElement(_Dropdown2.default, { label: '\u5C3A\u7801', id: 'shopping-cart-select-size' + order.id,
+	            value: _localize.SIZE_LOCALIZE_MAP[order.size],
+	            onSelect: this.handleSelectSize,
+	            items: (0, _lodash.values)(_localize.SIZE_LOCALIZE_MAP),
+	            error: error.size })
+	        )
+	      ) : null;
+	    }
+	  }]);
+
+	  return CartItem;
+	}(_react2.default.Component)) || _class);
+	var ShoppingCartButton = (_dec2 = (0, _reactRedux.connect)(function (state) {
+	  return {
+	    cart: state.entities.cart
+	  };
+	}), _dec2(_class2 = function (_React$Component2) {
+	  _inherits(ShoppingCartButton, _React$Component2);
+
+	  function ShoppingCartButton(props) {
+	    _classCallCheck(this, ShoppingCartButton);
+
+	    var _this2 = _possibleConstructorReturn(this, (ShoppingCartButton.__proto__ || Object.getPrototypeOf(ShoppingCartButton)).call(this, props));
+
+	    _this2.handleMouseEnter = function (e) {
+	      _this2.setState({
+	        display: 'block'
+	      });
+	      if (_this2.hidecb) {
+	        clearTimeout(_this2.hidecb);
+	      }
+	    };
+
+	    _this2.handleMouseLeave = function (e) {
+	      _this2.hidecb = setTimeout(function () {
+	        _this2.setState({
+	          display: 'none'
+	        });
+	      }, 500);
+	    };
+
+	    _this2.state = {
+	      display: 'none'
+	    };
+	    return _this2;
+	  }
+
+	  _createClass(ShoppingCartButton, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { onMouseEnter: this.handleMouseEnter, onMouseLeave: this.handleMouseLeave },
+	        _react2.default.createElement(
+	          _reactMdl.Badge,
+	          { className: 'cart-icon', text: (0, _lodash.sum)((0, _lodash.map)(this.props.cart, function (order) {
+	              return order.qty;
+	            })), overlap: true },
+	          _react2.default.createElement(_reactMdl.Icon, { id: 'shopping-cart-icon', name: 'shopping_cart' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: _main2.default.cartmenu, target: 'shopping-cart-icon', style: { display: this.state.display }, align: 'right' },
+	          (0, _lodash.values)(this.props.cart).map(function (order) {
+	            return _react2.default.createElement(CartItem, { orderId: order.id });
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _main2.default.actionsection },
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/checkout',
+	                className: 'mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent' },
+	              '\u7ED3\u8D26'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ShoppingCartButton;
+	}(_react2.default.Component)) || _class2);
+	exports.default = ShoppingCartButton;
 
 /***/ }
 /******/ ]);

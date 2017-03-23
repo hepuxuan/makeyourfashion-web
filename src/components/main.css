@@ -1,21 +1,84 @@
 .modal {
-	width: 80%;
-	position: relative;
+  width: 80%;
+  position: relative;
 }
 
 .closemodal {
-	position: absolute;
-	top: -20px;
-	right: -20px;
-	height: 40px !important;
-	width: 40px !important;
-	min-width: 40px !important;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  height: 40px !important;
+  width: 40px !important;
+  min-width: 40px !important;
 }
 
 .error {
-	color: #d50000;
+  color: #d50000;
   position: absolute;
   font-size: 12px;
   margin-top: 3px;
   display: block;
+}
+
+.cartitem .img {
+  width: 180px;
+  height: 180px;
+}
+
+.dropdown {
+  margin-top: 20px;
+}
+
+.dropdownbutton {
+  min-width: 130px;
+  text-align: left;
+}
+
+.arrowicon {
+  float: right;
+}
+
+.cartitem {
+  height: 100%;
+  cursor: auto;
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cartitem h6 {
+  color: #00b2a6;
+  margin: 0px 10px 0 0;
+}
+
+.cartitem .description {
+  min-width: 200px;
+  padding-left: 20px;
+  font-size: 0.9em;
+}
+
+.cartmenu {
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  position: absolute;
+  z-index: 999;
+  right: 200px;
+  width: 370px;
+  min-height: 200px;
+  overflow: scroll;
+}
+
+.pricelabel {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.actionsection {
+  margin: 20px 20px 20px 20px;
+}
+
+.actionsection a {
+  margin: auto;
+  width: 90% !important
 }
