@@ -4,6 +4,7 @@ import css from './create-shirt.css'
 import {Grid, Cell, Button, Spinner} from 'react-mdl'
 import LeftPanel from './LeftPanel'
 import SelectProduct from './SelectProduct'
+import SelectDesign from './SelectDesign'
 import {connect} from 'react-redux'
 import OrderForm from './OrderForm'
 import { fetchProducts, addToCart } from '../../action'
@@ -52,6 +53,7 @@ export default class CreateShirt extends React.Component {
             </Cell>
           </Grid>
           <SelectProduct />
+          <SelectDesign />
           <div className={css.actionarea}>
             <Button onClick={this.handleAddToCard} className={css.actionbutton} accent ripple raised>添加到购物车</Button>
           </div>

@@ -8,10 +8,10 @@ import {map,values} from 'lodash'
 import Dropdown from './Dropdown'
 import {range} from 'lodash'
 import {updateCartItem, fetchProducts, removeItemFromCart} from '../action'
-import {findKey} from 'lodash'
+import {findKey, isEmpty} from 'lodash'
 
 @connect(state => ({
-  cart: state.entities.cart,
+  cart: state.cart,
   products: state.entities.products,
   error: state.error.cart
 }), dispatch => ({
@@ -74,7 +74,7 @@ class CartItem extends React.Component {
 }
 
 @connect(state => ({
-  cart: state.entities.cart
+  cart: state.cart
 }))
 export default class ShoppingCartButton extends React.Component {
   constructor (props) {
@@ -107,11 +107,15 @@ export default class ShoppingCartButton extends React.Component {
         <Icon id='shopping-cart-icon' name='shopping_cart' />
       </Badge>
       <div className={css.cartmenu} target='shopping-cart-icon' style={{display: this.state.display }} align='right'>
-        { values(this.props.cart).map(order => <CartItem orderId={order.id} />) }
-        <div className={css.actionsection}>
-          <a href='/checkout'
-          className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent">结账</a>
-        </div>
+        {
+          isEmpty(this.props.cart) ? <p>您的购物车为空</p> : <div>
+            {values(this.props.cart).map(order => <CartItem orderId={order.id} />)}
+            <div className={css.actionsection}>
+              <a href='/checkout'
+                className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent">结账</a>
+            </div>
+          </div>
+        }
       </div>
     </div>
   }

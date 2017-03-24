@@ -4,6 +4,7 @@ import {pickBy} from 'lodash'
 import uuid from 'uuid/v4'
 
 const TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL'
+const TOGGLE_DESIGN_MODEL = 'TOGGLE_DESIGN_MODEL'
 const UPDATE_ORDER = 'UPDATE_ORDER'
 const START_FETCH_PRODUCT = 'START_FETCH_PRODUCT'
 const FINISH_FETCH_PRODUCT = 'FINISH_FETCH_PRODUCT'
@@ -22,6 +23,10 @@ const finishFetchProduct = {
 
 const toggleProductModel = {
   type: TOGGLE_PRODUCT_MODEL
+}
+
+const toggleDesignModel = {
+  type: TOGGLE_DESIGN_MODEL
 }
 
 function updateCartItem (payload) {
@@ -58,7 +63,7 @@ function addToCart (payload) {
     payload.id = id
     if (isEmpty(validateOrder(payload))) {
       const newCart = {
-        ...getState().entities.cart,
+        ...getState().cart,
         [id]: payload
       }
       localStorage.setItem('myf_cart', JSON.stringify(newCart))
@@ -102,6 +107,7 @@ function fetchProducts () {
 
 export {
   TOGGLE_PRODUCT_MODEL,
+  TOGGLE_DESIGN_MODEL,
   UPDATE_ORDER,
   START_FETCH_PRODUCT,
   FINISH_FETCH_PRODUCT,
@@ -110,6 +116,7 @@ export {
   UPDATE_CART_ITEM,
   REMOVE_ITEM_FROM_CART,
   toggleProductModel,
+  toggleDesignModel,
   updateOrder,
   fetchProducts,
   addToCart,

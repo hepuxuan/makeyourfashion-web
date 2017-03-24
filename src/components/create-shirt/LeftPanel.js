@@ -1,7 +1,7 @@
 import React from 'react'
 import {FABButton, Icon, List, ListItem, Grid, Cell, Textfield} from 'react-mdl'
 import {connect} from 'react-redux'
-import { toggleProductModel } from '../../action'
+import { toggleProductModel, toggleDesignModel } from '../../action'
 import css from './create-shirt.css'
 import { fetchProducts } from '../../action'
 
@@ -11,6 +11,9 @@ import { fetchProducts } from '../../action'
 }), dispatch => ({
   toggleProductModel () {
     dispatch(toggleProductModel)
+  },
+  toggleDesignModel () {
+    dispatch(toggleDesignModel)
   },
   fetchProducts () {
     dispatch(fetchProducts())
@@ -28,7 +31,7 @@ export default class LeftPanel extends React.Component {
 
   handleSelectDesign = e => {
     e.preventDefault()
-    console.log('select design')
+    this.props.toggleDesignModel()
   }
 
   handleAddText = e => {
@@ -39,7 +42,7 @@ export default class LeftPanel extends React.Component {
   render () {
     const product = this.props.products[this.props.order.productId]
     return <div>
-      <h5>{product.name}</h5>
+      <p className={css.productname}>{product.name}</p>
       <List>
         <ListItem>
           <label className={css.label}>

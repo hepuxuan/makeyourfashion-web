@@ -1,12 +1,37 @@
 import React from 'react'
-import {Tabs, Tab} from 'react-mdl'
-import ProductCard from './ProductCard'
+import {Tabs, Tab, Card, CardTitle, CardActions} from 'react-mdl'
 import css from './create-shirt.css'
 import {connect} from 'react-redux'
 import {values} from 'lodash'
-import { toggleProductModel } from '../../action'
-import { fetchProducts } from '../../action'
+import { toggleProductModel, updateOrder, fetchProducts } from '../../action'
 import Modal from '../Modal'
+
+@connect(null, dispatch => ({
+  updateOrder (order) {
+    dispatch(updateOrder(order))
+  }
+}))
+class ProductCard extends React.Component {
+  handleProductSelect = e => {
+    this.props.updateOrder({
+      productId: this.props.product.id
+    })
+    this.props.onSelect && this.props.onSelect(e)
+  }
+
+  render () {
+    const {product} = this.props
+    return <Card onClick={this.handleProductSelect}
+      shadow={0}
+      className={css.productcard}
+      style={{background: `url(${product.imgUrl}) center / cover`}}>
+      <CardTitle expand />
+      <CardActions className={css.cardacton}>
+        <span>{product.name}</span>
+      </CardActions>
+    </Card>
+  }
+}
 
 @connect(state => ({
   open: state.ui.createOrder.isProductModelOpen,
@@ -61,11 +86,11 @@ export default class SelectProduct extends React.Component {
         <Tab>全部</Tab>
         {categories.map((category, index) => <Tab key={index}>{category}</Tab>)}
       </Tabs>
-      <section className={css.productlist}>
+      <div className={css.flexlist}>
         {
           activeProducts.map(product => <ProductCard onSelect={this.handleToggleProductModel} product={product} />)
         } 
-      </section>
+      </div>
     </Modal>
   }
 }

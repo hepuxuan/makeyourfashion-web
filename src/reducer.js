@@ -1,5 +1,6 @@
 import {
 	TOGGLE_PRODUCT_MODEL,
+  TOGGLE_DESIGN_MODEL,
 	UPDATE_ORDER,
 	START_FETCH_PRODUCT,
 	FINISH_FETCH_PRODUCT,
@@ -19,8 +20,18 @@ const initialState = {
 			1: '女士'
 		},
 		products: {},
-		cart: JSON.parse(localStorage.getItem('myf_cart') || '{}')
+    tags: {
+      0: 'sport'
+    },
+    designs: {
+      0: {
+        id: 0,
+        imgUrl: "http://image3.spreadshirtmedia.com/image-server/v1/designs/11471651?width=150&height=150&version=1320836481&mediaType=webp",
+        tag: "sport"
+      }
+    }
 	},
+  cart: JSON.parse(localStorage.getItem('myf_cart') || '{}'),
 	fetchStatus : {
 		isFetchingProduct: false
 	},
@@ -34,9 +45,11 @@ const initialState = {
 				size: null,
 				productId: 0,
 				qty: null,
-				price: 10
+				price: 10,
+        designs: {}
 			},
-			isProductModelOpen: false
+			isProductModelOpen: false,
+      isDesignModelOpen: false
 		}
 	}
 }
@@ -64,6 +77,11 @@ function createOrder (state = initialState.ui.createOrder, action) {
       return {
         ...state,
         isProductModelOpen: !state.isProductModelOpen
+      }
+    case TOGGLE_DESIGN_MODEL:
+      return {
+        ...state,
+        isDesignModelOpen: !state.isDesignModelOpen
       }
     case UPDATE_ORDER:
       return {
@@ -115,7 +133,14 @@ function products (state = initialState.entities.products, action) {
 	}
 }
 
-function cart (state = initialState.entities.cart, action) {
+function designs (state = initialState.entities.designs, action) {
+  switch (action.type) {
+    default:
+      return state 
+  }
+}
+
+function cart (state = initialState.cart, action) {
 	switch (action.type) {
 		case ADD_TO_CART:
 		case UPDATE_CART_ITEM:
@@ -141,7 +166,14 @@ function categories (state = initialState.entities.categories, action) {
 	}
 }
 
-const ui = combineReducers({createOrder})
-const entities = combineReducers({products, categories, cart})
+function tags (state = initialState.entities.tags, action) {
+  switch (action.type) {
+    default:
+      return state 
+  }
+}
 
-export default combineReducers({entities, ui, fetchStatus, error})
+const ui = combineReducers({createOrder})
+const entities = combineReducers({products, designs, tags, categories})
+
+export default combineReducers({entities, ui, fetchStatus, cart, error})
