@@ -12,6 +12,7 @@ const REPLACE_PRODUCTS = 'REPLACE_PRODUCTS'
 const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
+const ADD_DESIGNS_BY_TAG = 'ADD_DESIGNS_BY_TAG'
 
 const startFetchProduct = {
   type: START_FETCH_PRODUCT
@@ -27,6 +28,13 @@ const toggleProductModel = {
 
 const toggleDesignModel = {
   type: TOGGLE_DESIGN_MODEL
+}
+
+function addDesignsByTag (payload) {
+  return {
+    type: ADD_DESIGNS_BY_TAG,
+    payload
+  }
 }
 
 function updateCartItem (payload) {
@@ -76,9 +84,16 @@ function addToCart (payload) {
 }
 
 function updateOrder (payload) {
-  return {
-    type: UPDATE_ORDER,
-    payload
+  return (dispatch, getState) => {
+    const newOrder = {
+      ...getState().ui.createOrder.order,
+      ...payload
+    }
+    localStorage.setItem('currentOrder', JSON.stringify(newOrder))
+    dispatch({
+      type: UPDATE_ORDER,
+      payload
+    })
   }
 }
 
@@ -94,7 +109,7 @@ function fetchProducts () {
     const state = getState()
     if (!state.fetchStatus.isFetchingProduct && isEmpty(state.entities.products)) {
       dispatch(startFetchProduct)
-      // fetch('/product.json') // uncomment this when running locally
+      // fetch('/product.json')  // uncomment this when running locally
       fetch('/makeyourfashion-web/product.json')
         .then(res => res.json())
         .then(procuts => {
@@ -115,6 +130,7 @@ export {
   ADD_TO_CART,
   UPDATE_CART_ITEM,
   REMOVE_ITEM_FROM_CART,
+  ADD_DESIGNS_BY_TAG,
   toggleProductModel,
   toggleDesignModel,
   updateOrder,

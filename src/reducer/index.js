@@ -1,61 +1,56 @@
 import {
-	TOGGLE_PRODUCT_MODEL,
+  TOGGLE_PRODUCT_MODEL,
   TOGGLE_DESIGN_MODEL,
-	UPDATE_ORDER,
-	START_FETCH_PRODUCT,
-	FINISH_FETCH_PRODUCT,
-	REPLACE_PRODUCTS,
-	ADD_TO_CART,
-	UPDATE_CART_ITEM,
+  UPDATE_ORDER,
+  START_FETCH_PRODUCT,
+  FINISH_FETCH_PRODUCT,
+  REPLACE_PRODUCTS,
+  ADD_TO_CART,
+  UPDATE_CART_ITEM,
   REMOVE_ITEM_FROM_CART
-} from './action'
+} from '../action'
 import { combineReducers } from 'redux'
 import {keyBy, isEmpty, pickBy} from 'lodash'
-import {validateOrder, validateOrderWhenPresent} from './validation'
+import {validateOrder, validateOrderWhenPresent} from '../validation'
+import designs from './entity/design'
 
 const initialState = {
-	entities: {
-		categories: {
-			0: '男士',
-			1: '女士'
-		},
-		products: {},
+  entities: {
+    categories: {
+      0: '男士',
+      1: '女士'
+    },
+    products: {},
     tags: {
       0: 'sport'
     },
-    designs: {
-      0: {
-        id: 0,
-        imgUrl: "http://image3.spreadshirtmedia.com/image-server/v1/designs/11471651?width=150&height=150&version=1320836481&mediaType=webp",
-        tag: "sport"
-      }
-    }
-	},
+    designs: {}
+  },
   cart: JSON.parse(localStorage.getItem('myf_cart') || '{}'),
-	fetchStatus : {
-		isFetchingProduct: false
-	},
-	error: {
-		cart: {},
-		order: {}
-	},
-	ui: {
-		createOrder: {
-			order: {
-				size: null,
-				productId: 0,
-				qty: null,
-				price: 10,
-        designs: {}
-			},
-			isProductModelOpen: false,
+  fetchStatus : {
+    isFetchingProduct: false
+  },
+  error: {
+    cart: {},
+    order: {}
+  },
+  ui: {
+    createOrder: {
+      order: JSON.parse(localStorage.getItem('currentOrder')) || {
+        size: null,
+        productId: 0,
+        qty: null,
+        price: 10,
+        designs: []
+      },
+      isProductModelOpen: false,
       isDesignModelOpen: false
-		}
-	}
+    }
+  }
 }
 
 function fetchStatus (state = initialState.fetchStatus, action) {
-	switch (action.type) {
+  switch (action.type) {
     case START_FETCH_PRODUCT:
       return {
         ...state,
@@ -87,8 +82,8 @@ function createOrder (state = initialState.ui.createOrder, action) {
       return {
         ...state,
         order: {
-        	...state.order,
-        	...action.payload
+          ...state.order,
+          ...action.payload
         }
       }
     default:
@@ -103,67 +98,60 @@ function error (state = initialState.error, action) {
         ...state,
         order: validateOrderWhenPresent(action.payload)
       }
-   	case ADD_TO_CART:
-    	return {
-    		...state,
-    		order: validateOrder(action.payload)
-    	}
+    case ADD_TO_CART:
+      return {
+        ...state,
+        order: validateOrder(action.payload)
+      }
     case UPDATE_CART_ITEM:
-    	return {
-    		...state,
-    		cart: {
-    			...cart,
-    			[action.payload.id]: validateOrder(action.payload)
-    		}
-    	}
+      return {
+        ...state,
+        cart: {
+          ...cart,
+          [action.payload.id]: validateOrder(action.payload)
+        }
+      }
     default:
       return state 
   }
 }
 
 function products (state = initialState.entities.products, action) {
-	switch (action.type) {
-		case REPLACE_PRODUCTS:
-			return {
-				...state,
-				...keyBy(action.payload, 'id')
-			}
-		default:
-      return state 
-	}
-}
-
-function designs (state = initialState.entities.designs, action) {
   switch (action.type) {
+    case REPLACE_PRODUCTS:
+      return {
+        ...state,
+        ...keyBy(action.payload, 'id')
+      }
     default:
       return state 
   }
 }
 
 function cart (state = initialState.cart, action) {
-	switch (action.type) {
-		case ADD_TO_CART:
-		case UPDATE_CART_ITEM:
-			if (isEmpty(validateOrder(action.payload))) {
-				return {
-					...state,
-					[action.payload.id]: action.payload
-				}
-			} else {
-				return state
-			}
+  switch (action.type) {
+    case ADD_TO_CART:
+    case UPDATE_CART_ITEM:
+      if (isEmpty(validateOrder(action.payload))) {
+        return {
+          ...state,
+          [action.payload.id]: action.payload
+        }
+      } else {
+        return state
+      }
     case REMOVE_ITEM_FROM_CART:
       return pickBy(state, order => order.id !== action.payload)
-		default:
+    default:
       return state 
-	}
+  }
 }
 
 function categories (state = initialState.entities.categories, action) {
-	switch (action.type) {
-		default:
+  switch (action.type) {
+    default:
       return state 
-	}
+  }
 }
 
 function tags (state = initialState.entities.tags, action) {

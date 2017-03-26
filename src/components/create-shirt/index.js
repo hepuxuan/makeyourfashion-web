@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateShirtCanvas from './createShirtCanvas'
+import CreateShirtCanvas from './CreateShirtCanvas'
 import css from './create-shirt.css'
 import {Grid, Cell, Button, Spinner} from 'react-mdl'
 import LeftPanel from './LeftPanel'
@@ -26,9 +26,11 @@ export default class CreateShirt extends React.Component {
   }
 
   handleAddToCard = e => {
+    console.log(this.props.order)
     e.preventDefault()
     this.props.addToCart({
       ...this.props.order,
+      // use the actual image from backend
       imgUrl: this.props.products[this.props.order.productId].imgUrl
     })
   }
@@ -45,8 +47,7 @@ export default class CreateShirt extends React.Component {
               <LeftPanel />
             </Cell>
             <Cell col={6}>
-              <CreateShirtCanvas 
-                image={product.imgUrl}/>
+              <CreateShirtCanvas />
             </Cell>
             <Cell col={3}>
               <OrderForm />

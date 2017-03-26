@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {values} from 'lodash'
 import {Card} from 'react-mdl'
 import css from './create-shirt.css'
+import uuid from 'uuid/v4'
 
 @connect(state => ({
   order: state.ui.createOrder.order
@@ -18,7 +19,7 @@ class DesignCard extends React.Component {
     this.props.updateOrder({
       designs: {
         ...this.props.order.designs,
-        [this.props.design.id]: {
+        [uuid()]: {
           designId: this.props.design.id,
           height: 100,
           width:100,
@@ -55,7 +56,7 @@ export default class SelectDesign extends React.Component {
 
   render () {
     const tags = values(this.props.tags)
-    const designs = values(this.props.designs)
+    const designs = values(this.props.designs.byIds)
     return <Modal onCloseModal={this.handleToggleDesignModel} open={this.props.open}>
       <div className={css.flexlist}>
       </div>
