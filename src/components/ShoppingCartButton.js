@@ -26,7 +26,7 @@ import {findKey, isEmpty} from 'lodash'
   }
 }))
 class CartItem extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchProducts()
   }
 

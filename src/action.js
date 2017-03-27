@@ -140,7 +140,7 @@ function fetchTags () {
       // fetch('/tag.json')  // uncomment this when running locally
       fetch('/makeyourfashion-web/tag.json')
         .then(res => res.json())
-        .then(tags => { 
+        .then(tags => {
           dispatch({
             type: REPLACE_TAGS,
             payload: tags
