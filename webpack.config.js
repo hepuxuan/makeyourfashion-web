@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: ['promise-polyfill',  'whatwg-fetch', './src/index.js'],
+  entry: ['promise-polyfill',  'whatwg-fetch', 'dialog-polyfill', './src/index.js'],
   output: {
     path: './docs',
     filename: 'build.js'

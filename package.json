@@ -20,6 +20,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "dependencies": {
+    "dialog-polyfill": "^0.4.7",
     "konva": "^1.4.0",
     "lodash": "^4.17.4",
     "promise-polyfill": "^6.0.2",
