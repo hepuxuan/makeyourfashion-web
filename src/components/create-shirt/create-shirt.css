@@ -68,3 +68,8 @@ canvas {
 .pricelabel {
   font-size: 1.5em;
 }
+
+.tag {
+  padding: 0 10px 0 10px;
+  cursor: pointer;
+}

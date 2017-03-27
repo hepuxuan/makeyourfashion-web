@@ -2,17 +2,18 @@ import {
   TOGGLE_PRODUCT_MODEL,
   TOGGLE_DESIGN_MODEL,
   UPDATE_ORDER,
-  START_FETCH_PRODUCT,
-  FINISH_FETCH_PRODUCT,
   REPLACE_PRODUCTS,
   ADD_TO_CART,
   UPDATE_CART_ITEM,
-  REMOVE_ITEM_FROM_CART
+  REMOVE_ITEM_FROM_CART,
+  ENTER_PREVIEW_MODE
 } from '../action'
 import { combineReducers } from 'redux'
 import {keyBy, isEmpty, pickBy} from 'lodash'
 import {validateOrder, validateOrderWhenPresent} from '../validation'
 import designs from './entity/design'
+import tags from './entity/tag'
+import fetchStatus from './fetchStatus'
 
 const initialState = {
   entities: {
@@ -20,16 +21,9 @@ const initialState = {
       0: '男士',
       1: '女士'
     },
-    products: {},
-    tags: {
-      0: 'sport'
-    },
-    designs: {}
+    products: {}
   },
   cart: JSON.parse(localStorage.getItem('myf_cart') || '{}'),
-  fetchStatus : {
-    isFetchingProduct: false
-  },
   error: {
     cart: {},
     order: {}
@@ -46,23 +40,6 @@ const initialState = {
       isProductModelOpen: false,
       isDesignModelOpen: false
     }
-  }
-}
-
-function fetchStatus (state = initialState.fetchStatus, action) {
-  switch (action.type) {
-    case START_FETCH_PRODUCT:
-      return {
-        ...state,
-        isFetchingProduct: true
-      }
-    case FINISH_FETCH_PRODUCT:
-      return {
-        ...state,
-        isFetchingProduct: false
-      }
-    default:
-      return state 
   }
 }
 
@@ -148,13 +125,6 @@ function cart (state = initialState.cart, action) {
 }
 
 function categories (state = initialState.entities.categories, action) {
-  switch (action.type) {
-    default:
-      return state 
-  }
-}
-
-function tags (state = initialState.entities.tags, action) {
   switch (action.type) {
     default:
       return state 

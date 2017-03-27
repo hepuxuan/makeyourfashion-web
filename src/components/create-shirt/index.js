@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateShirtCanvas from './CreateShirtCanvas'
+import CreateShirtCanvas from './createShirtCanvas'
 import css from './create-shirt.css'
 import {Grid, Cell, Button, Spinner} from 'react-mdl'
 import LeftPanel from './LeftPanel'
@@ -26,7 +26,6 @@ export default class CreateShirt extends React.Component {
   }
 
   handleAddToCard = e => {
-    console.log(this.props.order)
     e.preventDefault()
     this.props.addToCart({
       ...this.props.order,
