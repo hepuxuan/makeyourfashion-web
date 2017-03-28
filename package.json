@@ -15,12 +15,18 @@
     "babel-preset-react": "6.11.1",
     "concurrently": "^2.2.0",
     "css-loader": "^0.27.3",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "style-loader": "^0.14.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "1.14.1"
   },
   "dependencies": {
     "dialog-polyfill": "^0.4.7",
+    "eslint": "^3.18.0",
     "konva": "^1.4.0",
     "lodash": "^4.17.4",
     "promise-polyfill": "^6.0.2",
