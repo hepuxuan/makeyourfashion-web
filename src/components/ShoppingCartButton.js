@@ -1,36 +1,33 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Icon, Badge, Menu, MenuItem} from 'react-mdl'
-import {sum} from 'lodash'
-import {SIZE_LOCALIZE_MAP} from '../localize'
-import css from './main.css'
-import {map,values} from 'lodash'
-import Dropdown from './Dropdown'
-import {range} from 'lodash'
-import {updateCartItem, fetchProducts, removeItemFromCart} from '../action'
-import {findKey, isEmpty} from 'lodash'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Icon, Badge } from 'react-mdl';
+import { map, values, sum, range, findKey, isEmpty } from 'lodash';
+import { SIZE_LOCALIZE_MAP } from '../localize';
+import css from './main.css';
+import Dropdown from './Dropdown';
+import { updateCartItem, fetchProducts, removeItemFromCart } from '../action';
 
 @connect(state => ({
   cart: state.cart,
   products: state.entities.products,
-  error: state.error.cart
+  error: state.error.cart,
 }), dispatch => ({
-  removeItemFromCart (id) {
-    dispatch(removeItemFromCart(id))
+  removeItemFromCart(id) {
+    dispatch(removeItemFromCart(id));
   },
-  fetchProducts () {
-    dispatch(fetchProducts())
+  fetchProducts() {
+    dispatch(fetchProducts());
   },
-  updateCartItem (order) {
-    dispatch(updateCartItem(order))
-  }
+  updateCartItem(order) {
+    dispatch(updateCartItem(order));
+  },
 }))
 class CartItem extends React.Component {
-  componentDidMount () {
-    this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
-  handleSelectQty = qtyString => {
+  handleSelectQty = (qtyString) => {
     const qty = +qtyString
     if (qty === 0) {
       this.props.removeItemFromCart(this.props.orderId)
@@ -38,21 +35,21 @@ class CartItem extends React.Component {
 
     this.props.updateCartItem({
       ...this.props.cart[this.props.orderId],
-      qty: +qty
-    })
+      qty: +qty,
+    });
   }
 
-  handleSelectSize = size => {
+  handleSelectSize = (size) => {
     this.props.updateCartItem({
       ...this.props.cart[this.props.orderId],
-      size: findKey(SIZE_LOCALIZE_MAP, (v) => v === size)
-    })
+      size: findKey(SIZE_LOCALIZE_MAP, v => v === size),
+    });
   }
 
-  render () {
-    const order = this.props.cart[this.props.orderId]
-    const product = this.props.products[order.productId]
-    const error = this.props.error[order.id] || {}
+  render() {
+    const order = this.props.cart[this.props.orderId];
+    const product = this.props.products[order.productId];
+    const error = this.props.error[order.id] || {};
     return product ? <div key={order.id} className={css.cartitem}>
       <img className={css.img} src={order.imgUrl} />
       <div className={css.description}>
@@ -102,7 +99,7 @@ export default class ShoppingCartButton extends React.Component {
   }
 
   render () {
-    return <div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+    return <div className={css.shoppingcart} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
       <Badge className='cart-icon' text={sum(map(this.props.cart, order => order.qty))} overlap>
         <Icon id='shopping-cart-icon' name='shopping_cart' />
       </Badge>

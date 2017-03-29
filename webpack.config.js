@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: ['promise-polyfill',  'whatwg-fetch', 'dialog-polyfill', './src/index.js'],
+  entry: ['promise-polyfill',  'whatwg-fetch', 'dialog-polyfill', './src/index.jsx'],
   output: {
     path: './docs',
     filename: 'build.js'
@@ -9,7 +9,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },

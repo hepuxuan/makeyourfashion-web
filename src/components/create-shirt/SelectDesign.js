@@ -1,12 +1,12 @@
-import React from 'react'
-import {toggleDesignModel, updateOrder, fetchDesigns, fetchTags, fetchDesignsByTag} from '../../action'
-import Modal from '../Modal'
-import {connect} from 'react-redux'
-import {values} from 'lodash'
-import {Card, Chip, Textfield} from 'react-mdl'
-import css from './create-shirt.css'
-import uuid from 'uuid/v4'
-import SearchField from '../SearchField'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Card, Chip } from 'react-mdl';
+import uuid from 'uuid/v4';
+import css from './create-shirt.css';
+import { toggleDesignModel, updateOrder, fetchDesigns, fetchTags, fetchDesignsByTag } from '../../action';
+import Modal from '../Modal';
+import SearchField from '../SearchField';
+import { DESIGN_WIDTH, DESIGN_HEIGHT } from './consts';
 
 @connect(state => ({
   order: state.ui.createOrder.order
@@ -22,10 +22,10 @@ class DesignCard extends React.Component {
         ...this.props.order.designs,
         [uuid()]: {
           designId: this.props.design.id,
-          height: 100,
-          width:100,
-          x: 200,
-          y: 200
+          height: DESIGN_HEIGHT,
+          width: DESIGN_WIDTH,
+          x: 200 * (DESIGN_WIDTH / 100),
+          y: 200 * (DESIGN_HEIGHT / 100),
         }
       }
     })

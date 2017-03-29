@@ -1,104 +1,119 @@
-import React from 'react'
-import {Layer, Image, Stage, Rect, Group} from 'react-konva'
-import {connect} from 'react-redux'
-import {updateOrder, fetchDesigns} from '../../action'
-import {keys, isEqual} from 'lodash'
-import {Button} from 'react-mdl'
-import css from './create-shirt.css'
+import React from 'react';
+import { Layer, Image, Stage, Rect, Group } from 'react-konva';
+import { connect } from 'react-redux';
+import { Button } from 'react-mdl';
+import { keys } from 'lodash';
+import { updateOrder, fetchDesigns } from '../../action';
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  RECT_WIDTH,
+  RECT_HEIGHT,
+} from './consts';
 
-const CANVAS_HEIGHT = 500
-const CANVAS_WIDTH = 500
-const RECT_WIDTH = 180
+const { func, shape, array, string } = React.PropTypes;
 
 @connect(state => ({
   designs: state.entities.designs,
-  order: state.ui.createOrder.order
+  order: state.ui.createOrder.order,
 }), dispatch => ({
-  fetchDesigns () {
-    dispatch(fetchDesigns())
+  fetchDesigns() {
+    dispatch(fetchDesigns());
   },
-  updateOrder (order) {
-    dispatch(updateOrder(order))
-  }
+  updateOrder(order) {
+    dispatch(updateOrder(order));
+  },
 }))
 class Design extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      image: null
-    }
+  static propTypes = {
+    fetchDesigns: func.isRequired,
+    order: shape({
+      designs: array
+    }).isRequired,
+    designUuid: string.isRequired,
+    designs: array.isRequired
   }
 
-  componentDidMount () {
-    this.props.fetchDesigns()
-    const designId = this.props.order.designs[this.props.designUuid].designId
-    const design = this.props.designs.byIds[designId]
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: null,
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchDesigns();
+    const designId = this.props.order.designs[this.props.designUuid].designId;
+    const design = this.props.designs.byIds[designId];
     if (design) {
       const image = new window.Image()
       image.src = design.imgUrl
       image.onload = () => {
         this.setState({
-          image: image
+          image: image,
         })
       }
     }
 
     if (this.props.editible) {
-      this.refs.rect.show()
+      this.rect.show();
     }
 
     if (!this.props.editible) {
-      this.refs.rect.hide()
+      this.rect.hide();
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    const nextDesignId = nextProps.order.designs[nextProps.designUuid].designId
-    const design = nextProps.designs.byIds[nextDesignId]
+  componentWillReceiveProps(nextProps) {
+    const nextDesignId = nextProps.order.designs[nextProps.designUuid].designId;
+    const design = nextProps.designs.byIds[nextDesignId];
     if (design) {
-      const image = new window.Image()
-      image.src = design.imgUrl
+      const image = new window.Image();
+      image.src = design.imgUrl;
       image.onload = () => {
         this.setState({
-          image: image
-        })
-      }
+          image,
+        });
+      };
     }
 
     if (nextProps.editible && !this.props.editible) {
-      this.refs.rect.show()
-      this.props.onChangeLayer()
+      this.rect.show();
+      this.props.onChangeLayer();
     }
 
     if (!nextProps.editible && this.props.editible) {
-      this.refs.rect.hide()
-      this.props.onChangeLayer()
+      this.rect.hide();
+      this.props.onChangeLayer();
     }
   }
 
-  handleDragEnd = e => {
-    const {height, width} = this.props.order.designs[this.props.designUuid]
+  handleDragEnd = () => {
+    const { height, width } = this.props.order.designs[this.props.designUuid];
     this.props.updateOrder({
       designs: {
         ...this.props.order.designs,
         [this.props.designUuid]: {
           ...this.props.order.designs[this.props.designUuid],
-          x: e.evt.offsetX-width/2,
-          y: e.evt.offsetY-height/2
-        }
-      }
-    })
+          x: this.group.attrs.x,
+          y: this.group.attrs.y,
+        },
+      },
+    });
   }
 
-  render () {
+  render() {
     const {x, y, height, width} = this.props.order.designs[this.props.designUuid]
     return <Group
+      ref={(g) => { this.group = g; }}
       x={x} y={y}
       width={width} height={height}
       draggable={this.props.editible}
       onDragStart={this.handleDragStart}
       onDragEnd={this.handleDragEnd}>
-      <Rect ref='rect' stroke='white' width={width} height={height} dash={[10, 5]} />
+      <Rect ref={(r) => { this.rect = r; }}
+        stroke='white' width={width} height={height} dash={[10, 5]}
+      />
       <Image
         width={width} height={height}
         image={this.state.image} />
@@ -150,40 +165,40 @@ export default class CreateShirtCanvas extends React.Component {
   }
 
   handlLayerChange = e => {
-    this.refs.layer.draw()
+    this.layer.draw()
   }
 
-  handleEditClick = e => {
-    e.preventDefault()
+  handleEditClick = (e) => {
+    e.preventDefault();
     this.setState({
-      mode: EDIT_MODE
-    })
+      mode: EDIT_MODE,
+    });
 
-    this.refs.rect.show()
-    this.refs.layer.draw()
+    this.rect.show();
+    this.layer.draw();
   }
 
-  handleViewClick = e => {
-    e.preventDefault()
+  handleViewClick = (e) => {
+    e.preventDefault();
     this.setState({
-      mode: VIEW_MODE
-    })
-    this.refs.rect.hide()
-    this.refs.layer.draw()
+      mode: VIEW_MODE,
+    });
+    this.rect.hide();
+    this.layer.draw();
   }
 
-  render () {
+  render() {
     return (
-      <div id='create-shirt-canvas'>
-        <Button onClick={this.handleEditClick} className={this.state.mode === EDIT_MODE ? css.activetab : null} primary>编辑</Button>
-        <Button onClick={this.handleViewClick} className={this.state.mode === VIEW_MODE ? css.activetab : null} primary>预览</Button>
+      <div id="create-shirt-canvas">
+        <Button onClick={this.handleEditClick} className={this.state.mode === EDIT_MODE ? 'activetab tab' : 'tab'} primary>编辑</Button>
+        <Button onClick={this.handleViewClick} className={this.state.mode === VIEW_MODE ? 'activetab tab' : 'tab'} primary>预览</Button>
         <Stage x={0} y={0} width={CANVAS_WIDTH} height={CANVAS_WIDTH}>
-          <Layer ref='layer'>
+          <Layer ref={(l) => { this.layer = l; }}>
             <Image width={CANVAS_WIDTH} height={CANVAS_HEIGHT} image={this.state.image} />
-            <Rect ref='rect' x={CANVAS_WIDTH/2 - RECT_WIDTH/2} y={100} stroke='white' width={RECT_WIDTH} height={CANVAS_HEIGHT/3 * 2} />
+            <Rect ref={(r) => { this.rect = r; }} x={CANVAS_WIDTH/2 - RECT_WIDTH/2} y={100 * (CANVAS_HEIGHT / 500)} stroke='white' width={RECT_WIDTH} height={CANVAS_HEIGHT/3 * 2} />
             { keys(this.props.order.designs).map(k => <Design key={k}
                 editible={this.state.mode === EDIT_MODE}
-                bundary={{x: CANVAS_WIDTH/2 - RECT_WIDTH/2, y: 100, width: RECT_WIDTH, height: CANVAS_HEIGHT/3 * 2}}
+                bundary={{ x: (CANVAS_WIDTH / 2) - (RECT_WIDTH / 2), y: 100, width: RECT_WIDTH, height: RECT_HEIGHT }}
                 onChangeLayer={this.handlLayerChange} designUuid={k} />) }
           </Layer>
         </Stage>

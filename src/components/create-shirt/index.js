@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateShirtCanvas from './createShirtCanvas'
+import CreateShirtCanvas from './CreateShirtCanvas'
 import css from './create-shirt.css'
 import {Grid, Cell, Button, Spinner} from 'react-mdl'
 import LeftPanel from './LeftPanel'

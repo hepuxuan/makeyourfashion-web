@@ -1,8 +1,8 @@
 .header {
-  padding: 0 40px 0 40px;
   box-shadow: 0 3px 10px rgba(0,0,0,.25);
   margin-bottom: 20px;
   height: 70px;
+  position: relative;
 }
 .header .mdl-tabs__tab-bar {
   height: 70px;
@@ -17,7 +17,30 @@
   font-size: 1.125em;
   padding-top: 20px;
   height: 50px;
-  min-width: 80px;
+}
+
+@media (min-width: 600px) {
+  .header {
+    padding: 0 40px 0 40px;
+  }
+  .header-tab {
+    min-width: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+  }
+}
+
+.activetab {
+  background-color: rgb(63, 81, 181);
+  color: white !important;
+}
+
+.tab {
+  width: auto;
 }
 
 .header-cell {
@@ -28,4 +51,8 @@
   margin-top: 20px;
   cursor: pointer;
   color: black;
+}
+
+body, button, input, select, textarea {
+    font: 14px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
 }

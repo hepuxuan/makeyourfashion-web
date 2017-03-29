@@ -96,7 +96,7 @@ function addToCart(payload) {
     }
     dispatch({
       type: ADD_TO_CART,
-      newItem,
+      payload: newItem,
     });
   };
 }
