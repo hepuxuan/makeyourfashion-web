@@ -77,12 +77,12 @@ class Design extends React.Component {
       };
     }
 
-    if (nextProps.editible && !this.props.editible) {
+    if (nextProps.editible) {
       this.rect.show();
       this.props.onChangeLayer();
     }
 
-    if (!nextProps.editible && this.props.editible) {
+    if (!nextProps.editible) {
       this.rect.hide();
       this.props.onChangeLayer();
     }
@@ -164,8 +164,8 @@ export default class CreateShirtCanvas extends React.Component {
     }
   }
 
-  handlLayerChange = e => {
-    this.layer.draw()
+  handlLayerChange = () => {
+    this.refs.layer.draw();
   }
 
   handleEditClick = (e) => {
@@ -175,7 +175,7 @@ export default class CreateShirtCanvas extends React.Component {
     });
 
     this.rect.show();
-    this.layer.draw();
+    this.refs.layer.draw();
   }
 
   handleViewClick = (e) => {
@@ -184,7 +184,7 @@ export default class CreateShirtCanvas extends React.Component {
       mode: VIEW_MODE,
     });
     this.rect.hide();
-    this.layer.draw();
+    this.refs.layer.draw();
   }
 
   render() {
@@ -193,7 +193,7 @@ export default class CreateShirtCanvas extends React.Component {
         <Button onClick={this.handleEditClick} className={this.state.mode === EDIT_MODE ? 'activetab tab' : 'tab'} primary>编辑</Button>
         <Button onClick={this.handleViewClick} className={this.state.mode === VIEW_MODE ? 'activetab tab' : 'tab'} primary>预览</Button>
         <Stage x={0} y={0} width={CANVAS_WIDTH} height={CANVAS_WIDTH}>
-          <Layer ref={(l) => { this.layer = l; }}>
+          <Layer ref="layer">
             <Image width={CANVAS_WIDTH} height={CANVAS_HEIGHT} image={this.state.image} />
             <Rect ref={(r) => { this.rect = r; }} x={CANVAS_WIDTH/2 - RECT_WIDTH/2} y={100 * (CANVAS_HEIGHT / 500)} stroke='white' width={RECT_WIDTH} height={CANVAS_HEIGHT/3 * 2} />
             { keys(this.props.order.designs).map(k => <Design key={k}
