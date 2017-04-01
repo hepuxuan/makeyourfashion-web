@@ -51,6 +51,8 @@ export default class CreateShirt extends React.Component {
     const product = this.props.products[this.props.order.productId];
     return !product ? <Spinner /> : (
       <div>
+        <SelectProduct />
+        <SelectDesign />
         <Grid className={css.container}>
           <Cell col={3}>
             <LeftPanel />
@@ -62,8 +64,6 @@ export default class CreateShirt extends React.Component {
             <OrderForm />
           </Cell>
         </Grid>
-        <SelectProduct />
-        <SelectDesign />
         <div className={css.actionarea}>
           <Button
             onClick={this.handleAddToCard}

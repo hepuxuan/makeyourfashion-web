@@ -31,9 +31,19 @@ function toCanvasWidth(width: number) {
   return (width / BASE_WIDTH) * RECT_WIDTH;
 }
 
+function fromCanvasHeight(height: number) {
+  return (height / RECT_HEIGHT) * BASE_HEIGHT;
+}
+
+function fromCanvasWidth(width: number) {
+  return (width / RECT_WIDTH) * BASE_WIDTH;
+}
+
 export {
   toCanvasPx,
   fromCanvasPx,
   toCanvasHeight,
   toCanvasWidth,
+  fromCanvasHeight,
+  fromCanvasWidth
 };

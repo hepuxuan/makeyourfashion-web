@@ -123,3 +123,7 @@
     width: auto;
   }
 }
+
+dialog {
+  /*overflow: auto;*/
+}
