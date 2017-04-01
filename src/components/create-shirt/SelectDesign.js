@@ -6,30 +6,29 @@ import css from './create-shirt.css';
 import { toggleDesignModel, updateOrder, fetchDesigns, fetchTags, fetchDesignsByTag } from '../../action';
 import Modal from '../Modal';
 import SearchField from '../SearchField';
-import { DESIGN_WIDTH, DESIGN_HEIGHT } from './consts';
 
 @connect(state => ({
-  order: state.ui.createOrder.order
+  order: state.ui.createOrder.order,
 }), dispatch => ({
-  updateOrder (order) {
-    dispatch(updateOrder(order))
-  }
+  updateOrder(order) {
+    dispatch(updateOrder(order));
+  },
 }))
 class DesignCard extends React.Component {
-  handleDesignSelect = e => {
+  handleDesignSelect = (e) => {
     this.props.updateOrder({
       designs: {
         ...this.props.order.designs,
         [uuid()]: {
           designId: this.props.design.id,
-          height: DESIGN_HEIGHT,
-          width: DESIGN_WIDTH,
-          x: 200 * (DESIGN_WIDTH / 100),
-          y: 200 * (DESIGN_HEIGHT / 100),
-        }
-      }
-    })
-    this.props.onSelect && this.props.onSelect(e)
+          height: 500,
+          width: 500,
+          x: 250,
+          y: 625,
+        },
+      },
+    });
+    this.props.onSelect && this.props.onSelect(e);
   }
 
   render () {

@@ -1,3 +1,5 @@
+// @flow
+
 let canvasWidth;
 let canvasHeight;
 
@@ -15,7 +17,7 @@ if (window.matchMedia('(min-width: 500px)').matches) {
 const CANVAS_HEIGHT = canvasHeight;
 const CANVAS_WIDTH = canvasWidth;
 const RECT_WIDTH = (9 / 25) * CANVAS_WIDTH;
-const RECT_HEIGHT = CANVAS_HEIGHT * (2 / 3);
+const RECT_HEIGHT = (RECT_WIDTH * 7) / 4;
 const DESIGN_WIDTH = 100 * (CANVAS_WIDTH / 500);
 const DESIGN_HEIGHT = 100 * (CANVAS_HEIGHT / 500);
 
