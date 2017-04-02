@@ -1,24 +1,28 @@
 [
   {
     "id": 0,
+    "price": 40,
     "category": 0,
     "name": "男士体恤",
     "imgUrl": "https://image3.spreadshirtmedia.com/image-server/v1/productTypes/210/views/1/appearances/228?width=500&height=500"
   },
   {
     "id": 1,
+    "price": 40,
     "category": 1,
     "name": "女士体恤",
     "imgUrl": "https://image0.spreadshirtmedia.com/image-server/v1/productTypes/1171/views/1/appearances/196?width=500&height=500"
   },
   {
     "id": 3,
+    "price": 60,
     "category": 1,
     "name": "女士体恤",
     "imgUrl": "https://image1.spreadshirtmedia.com/image-server/v1/productTypes/1196/views/1/appearances/228?width=500&height=500"
   },
   {
     "id": 4,
+    "price": 70,
     "category": 0,
     "name": "男士长袖",
     "imgUrl": "https://image3.spreadshirtmedia.com/image-server/v1/productTypes/875/views/1/appearances/339?width=500&height=500"

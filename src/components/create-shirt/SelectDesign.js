@@ -115,15 +115,15 @@ export default class SelectDesign extends React.Component {
   render () {
     const designIds = this.state.query ? (this.props.designs.byTags[this.state.query] || []) : this.props.designs.byPopularity
     return <Modal onCloseModal={this.handleToggleDesignModel} open={this.props.open}>
+      {this.props.tags.allIds.map(id => <span className={css.tag}>
+        <TagIcon onClick={this.handleTagClick} value={this.props.tags.byIds[id].name} key={id} />
+      </span>)}
       <SearchField
         onSearchChange={this.handleSearchChange}
         query={this.state.query}
         onSelect={this.handleSelectQuery}
         onClearSearch={this.handleClearSearch}
         pops={this.props.tags.allIds.map(id => this.props.tags.byIds[id].name).filter(tag => this.state.query.length && tag.startsWith(this.state.query))} />
-      {this.props.tags.allIds.map(id => <span className={css.tag}>
-        <TagIcon onClick={this.handleTagClick} value={this.props.tags.byIds[id].name} key={id} />
-      </span>)}
       <div className={css.flexlist}>
         {designIds.map(id => <DesignCard
           onSelect={this.handleToggleDesignModel}

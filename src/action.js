@@ -19,6 +19,7 @@ const ADD_DESIGNS_BY_TAG = 'ADD_DESIGNS_BY_TAG';
 const ENTER_PREVIEW_MODE = 'ENTER_PREVIEW_MODE';
 const ADD_SORTED_DESIGNS = 'ADD_SORTED_DESIGNS';
 const REPLACE_TAGS = 'REPLACE_TAGS';
+const REMOVE_DESIGN = 'REMOVE_DESIGN';
 
 const startFetchProduct = {
   type: START_FETCH_PRODUCT,
@@ -51,6 +52,13 @@ const toggleProductModel = {
 const toggleDesignModel = {
   type: TOGGLE_DESIGN_MODEL,
 };
+
+function removeDesign(id: number) {
+  return {
+    type: REMOVE_DESIGN,
+    payload: id,
+  };
+}
 
 function updateCartItem(payload) {
   return (dispatch, getState) => {
@@ -222,4 +230,5 @@ export {
   updateCartItem,
   removeItemFromCart,
   fetchDesignsByTag,
+  removeDesign,
 };

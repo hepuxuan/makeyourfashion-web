@@ -32,6 +32,10 @@
   button {
     width: 100%;
   }
+
+  .mdl-chip {
+    width: auto;
+  }
 }
 
 .activetab {

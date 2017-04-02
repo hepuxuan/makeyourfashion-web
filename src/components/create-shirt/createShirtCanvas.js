@@ -94,6 +94,7 @@ class CreateShirtCanvas extends React.Component {
           <Layer ref="layer">
             <Image width={CANVAS_WIDTH} height={CANVAS_HEIGHT} image={this.state.image} />
             <Rect
+              strokeWidth={1}
               ref={(r) => { this.rect = r; }}
               x={(CANVAS_WIDTH - RECT_WIDTH) / 2}
               y={(CANVAS_HEIGHT - RECT_HEIGHT) / 2}

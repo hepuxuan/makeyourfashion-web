@@ -6,6 +6,37 @@
   .container {
     margin: 0 40px 0 40px;
   }
+  .productcard {
+    width: 150px;
+    min-width: 150px;
+    height: 150px;
+    min-height: 150px;
+    margin: auto;
+    cursor: pointer;
+    margin: 10px 10px 0 0;
+  }
+
+  .designcard {
+    width: 130px;
+    min-width: 130px;
+    height: 130px;
+    min-height: 130px;
+    margin: auto;
+    cursor: pointer;
+    margin: 10px 10px 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .productcard, .designcard {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+    min-height: 120px;
+    margin: auto;
+    cursor: pointer;
+    margin: 5px 5px 0 0;
+  }
 }
 
 canvas {
@@ -23,26 +54,6 @@ canvas {
   color: rgb(108, 108, 108);
   font-weight: bold;
   font-size: 1.2em;
-}
-
-.productcard {
-  width: 150px;
-  min-width: 150px;
-  height: 150px;
-  min-height: 150px;
-  margin: auto;
-  cursor: pointer;
-  margin: 10px 10px 0 0;
-}
-
-.designcard {
-  width: 130px;
-  min-width: 130px;
-  height: 130px;
-  min-height: 130px;
-  margin: auto;
-  cursor: pointer;
-  margin: 10px 10px 0 0;
 }
 
 .label {

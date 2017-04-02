@@ -27,10 +27,15 @@ class CartItem extends React.Component {
     this.props.fetchProducts();
   }
 
+  getPrice = () => {
+    const order = this.props.cart[this.props.orderId];
+    return this.props.products[order.productId].price + (values(order.designs).length * 5);
+  }
+
   handleSelectQty = (qtyString) => {
-    const qty = +qtyString
+    const qty = +qtyString;
     if (qty === 0) {
-      this.props.removeItemFromCart(this.props.orderId)
+      this.props.removeItemFromCart(this.props.orderId);
     }
 
     this.props.updateCartItem({
@@ -50,23 +55,29 @@ class CartItem extends React.Component {
     const order = this.props.cart[this.props.orderId];
     const product = this.props.products[order.productId];
     const error = this.props.error[order.id] || {};
-    return product ? <div key={order.id} className={css.cartitem}>
-      <img className={css.img} src={order.imgUrl} />
-      <div className={css.description}>
-        <h6>{product.name}</h6>
-        <div><label className={css.pricelabel}>{`¥ ${(order.price * order.qty).toFixed(2)}`}</label></div>
-        <Dropdown label='数量' id={`shopping-cart-select-qty${order.id}`}
-          value={order.qty}
-          onSelect={this.handleSelectQty}
-          items={range(0, 13)}
-          error={error.qty} />
-        <Dropdown label='尺码' id={`shopping-cart-select-size${order.id}`}
-          value={SIZE_LOCALIZE_MAP[order.size]}
-          onSelect={this.handleSelectSize}
-          items={values(SIZE_LOCALIZE_MAP)}
-          error={error.size} />
+    return product ? (
+      <div key={order.id} className={css.cartitem}>
+        <img alt="product" className={css.img} src={order.imgUrl} />
+        <div className={css.description}>
+          <h6>{product.name}</h6>
+          <div><p className={css.pricelabel}>{`¥ ${(this.getPrice() * order.qty).toFixed(2)}`}</p></div>
+          <Dropdown
+            label="数量" id={`shopping-cart-select-qty${order.id}`}
+            value={order.qty}
+            onSelect={this.handleSelectQty}
+            items={range(0, 13)}
+            error={error.qty}
+          />
+          <Dropdown
+            label="尺码" id={`shopping-cart-select-size${order.id}`}
+            value={SIZE_LOCALIZE_MAP[order.size]}
+            onSelect={this.handleSelectSize}
+            items={values(SIZE_LOCALIZE_MAP)}
+            error={error.size}
+          />
+        </div>
       </div>
-    </div>: null
+    ) : null;
   }
 }
 

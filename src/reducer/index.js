@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+import { keyBy, isEmpty, pickBy } from 'lodash';
 import {
   TOGGLE_PRODUCT_MODEL,
   TOGGLE_DESIGN_MODEL,
@@ -6,27 +8,25 @@ import {
   ADD_TO_CART,
   UPDATE_CART_ITEM,
   REMOVE_ITEM_FROM_CART,
-  ENTER_PREVIEW_MODE
-} from '../action'
-import { combineReducers } from 'redux'
-import {keyBy, isEmpty, pickBy} from 'lodash'
-import {validateOrder, validateOrderWhenPresent} from '../validation'
-import designs from './entity/design'
-import tags from './entity/tag'
-import fetchStatus from './fetchStatus'
+} from '../action';
+
+import { validateOrder, validateOrderWhenPresent } from '../validation';
+import designs from './entity/design';
+import tags from './entity/tag';
+import fetchStatus from './fetchStatus';
 
 const initialState = {
   entities: {
     categories: {
       0: '男士',
-      1: '女士'
+      1: '女士',
     },
-    products: {}
+    products: {},
   },
   cart: JSON.parse(localStorage.getItem('myf_cart') || '{}'),
   error: {
     cart: {},
-    order: {}
+    order: {},
   },
   ui: {
     createOrder: {
@@ -35,103 +35,102 @@ const initialState = {
         productId: 0,
         qty: null,
         price: 10,
-        designs: []
+        designs: [],
       },
       isProductModelOpen: false,
-      isDesignModelOpen: false
-    }
-  }
-}
+      isDesignModelOpen: false,
+    },
+  },
+};
 
-function createOrder (state = initialState.ui.createOrder, action) {
+function createOrder(state = initialState.ui.createOrder, action) {
   switch (action.type) {
     case TOGGLE_PRODUCT_MODEL:
       return {
         ...state,
-        isProductModelOpen: !state.isProductModelOpen
-      }
+        isProductModelOpen: !state.isProductModelOpen,
+      };
     case TOGGLE_DESIGN_MODEL:
       return {
         ...state,
-        isDesignModelOpen: !state.isDesignModelOpen
-      }
+        isDesignModelOpen: !state.isDesignModelOpen,
+      };
     case UPDATE_ORDER:
       return {
         ...state,
         order: {
           ...state.order,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     default:
-      return state 
+      return state;
   }
 }
 
-function error (state = initialState.error, action) {
+function error(state = initialState.error, action) {
   switch (action.type) {
     case UPDATE_ORDER:
       return {
         ...state,
-        order: validateOrderWhenPresent(action.payload)
-      }
+        order: validateOrderWhenPresent(action.payload),
+      };
     case ADD_TO_CART:
       return {
         ...state,
-        order: validateOrder(action.payload)
-      }
+        order: validateOrder(action.payload),
+      };
     case UPDATE_CART_ITEM:
       return {
         ...state,
         cart: {
-          ...cart,
-          [action.payload.id]: validateOrder(action.payload)
-        }
-      }
+          ...state.cart,
+          [action.payload.id]: validateOrder(action.payload),
+        },
+      };
     default:
-      return state 
+      return state;
   }
 }
 
-function products (state = initialState.entities.products, action) {
+function products(state = initialState.entities.products, action) {
   switch (action.type) {
     case REPLACE_PRODUCTS:
       return {
         ...state,
-        ...keyBy(action.payload, 'id')
-      }
+        ...keyBy(action.payload, 'id'),
+      };
     default:
-      return state 
+      return state;
   }
 }
 
-function cart (state = initialState.cart, action) {
+function cart(state = initialState.cart, action) {
   switch (action.type) {
     case ADD_TO_CART:
     case UPDATE_CART_ITEM:
       if (isEmpty(validateOrder(action.payload))) {
         return {
           ...state,
-          [action.payload.id]: action.payload
-        }
-      } else {
-        return state
+          [action.payload.id]: action.payload,
+        };
       }
+      return state;
     case REMOVE_ITEM_FROM_CART:
-      return pickBy(state, order => order.id !== action.payload)
+      return pickBy(state, order => order.id !== action.payload);
     default:
-      return state 
+      return state;
   }
 }
 
-function categories (state = initialState.entities.categories, action) {
+function categories(state = initialState.entities.categories, action) {
   switch (action.type) {
     default:
-      return state 
+      return state;
   }
 }
 
-const ui = combineReducers({createOrder})
-const entities = combineReducers({products, designs, tags, categories})
+const ui = combineReducers({ createOrder });
+const entities = combineReducers({ products, designs, tags, categories });
 
-export default combineReducers({entities, ui, fetchStatus, cart, error})
+export default combineReducers({ entities, ui, fetchStatus, cart, error });

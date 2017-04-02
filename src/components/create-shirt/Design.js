@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-import { Image, Rect, Group } from 'react-konva';
+import { Image, Rect, Group, Circle } from 'react-konva';
 import { connect } from 'react-redux';
+import { omit } from 'lodash';
 import { updateOrder, fetchDesigns } from '../../action';
 import {
   toCanvasPx,
@@ -11,6 +12,17 @@ import {
   fromCanvasHeight,
   fromCanvasWidth,
 } from './util';
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  RECT_WIDTH,
+  RECT_HEIGHT,
+} from './consts';
+
+type Pos = {
+  x: number,
+  y: number,
+}
 
 type KonvaType = {
   show: () => void,
@@ -27,22 +39,61 @@ type KonvaType = {
   },
 }
 
+const ZOOM_BTN_SIZE = 5;
+const MIN_DESIGN_SIZE = 10;
+
+function getDragBound(pos: Pos, minx: number, miny: number, maxx: number, maxy: number) {
+  let x;
+  let y;
+
+  if (pos.x < minx) {
+    x = minx;
+  } else if (pos.x > maxx) {
+    x = maxx;
+  } else {
+    x = pos.x;
+  }
+
+  if (pos.y < miny) {
+    y = miny;
+  } else if (pos.y > maxy) {
+    y = maxy;
+  } else {
+    y = pos.y;
+  }
+
+  return {
+    x,
+    y,
+  };
+}
+
 class Design extends React.Component {
   constructor(props: {}) {
     super(props);
     this.state = {
       image: null,
+      removeImg: null,
     };
   }
 
   state: {
     image: Image,
+    removeImg: Image,
   }
 
   componentDidMount() {
     this.props.fetchDesigns();
     const designId = this.props.order.designs[this.props.designUuid].designId;
     const design = this.props.designs.byIds[designId];
+    const removeImg = new window.Image();
+    removeImg.src = '/makeyourfashion-web/docs/delete.svg';
+    // removeImg.src = '/docs/delete.svg'; // uncomment locally
+    removeImg.onload = () => {
+      this.setState({
+        removeImg,
+      });
+    };
     if (design) {
       const image = new window.Image();
       image.src = design.imgUrl;
@@ -59,6 +110,7 @@ class Design extends React.Component {
       this.bottomleft.show();
       this.bottomright.show();
       this.rect.show();
+      this.removeBtn.show();
     }
 
     if (!this.props.editible) {
@@ -67,6 +119,7 @@ class Design extends React.Component {
       this.bottomleft.hide();
       this.bottomright.hide();
       this.rect.hide();
+      this.removeBtn.hide();
     }
   }
 
@@ -89,6 +142,7 @@ class Design extends React.Component {
       this.topright.show();
       this.bottomleft.show();
       this.bottomright.show();
+      this.removeBtn.show();
       this.props.onChangeLayer();
     }
 
@@ -98,6 +152,7 @@ class Design extends React.Component {
       this.topright.hide();
       this.bottomleft.hide();
       this.bottomright.hide();
+      this.removeBtn.hide();
       this.props.onChangeLayer();
     }
   }
@@ -115,6 +170,8 @@ class Design extends React.Component {
   image: KonvaType
 
   group: KonvaType
+
+  removeBtn: KonvaType
 
   props: {
     updateOrder: ({designs: any}) => void,
@@ -144,21 +201,62 @@ class Design extends React.Component {
     });
   }
 
+  handleDragBound = (pos: Pos) => {
+    const minx = (CANVAS_WIDTH - RECT_WIDTH) / 2;
+    const miny = (CANVAS_HEIGHT - RECT_HEIGHT) / 2;
+    const maxx = (minx + RECT_WIDTH) - this.group.attrs.width;
+    const maxy = (miny + RECT_HEIGHT) - this.group.attrs.height;
+    return getDragBound(pos, minx, miny, maxx, maxy);
+  }
+
+  handleDragTopLeftBound = (pos: Pos) => {
+    const minx = ((CANVAS_WIDTH - RECT_WIDTH) / 2) - ZOOM_BTN_SIZE;
+    const miny = ((CANVAS_HEIGHT - RECT_HEIGHT) / 2) - ZOOM_BTN_SIZE;
+    const maxx = (this.group.attrs.x + this.group.attrs.width) - ZOOM_BTN_SIZE - MIN_DESIGN_SIZE;
+    const maxy = (this.group.attrs.y + this.group.attrs.height) - ZOOM_BTN_SIZE - MIN_DESIGN_SIZE;
+    return getDragBound(pos, minx, miny, maxx, maxy);
+  }
+
+  handleDragBottomLeftBound = (pos: Pos) => {
+    const minx = ((CANVAS_WIDTH - RECT_WIDTH) / 2) - ZOOM_BTN_SIZE;
+    const miny = this.group.attrs.y + ZOOM_BTN_SIZE + MIN_DESIGN_SIZE;
+    const maxx = (this.group.attrs.x + this.group.attrs.width) - ZOOM_BTN_SIZE - MIN_DESIGN_SIZE;
+    const maxy = ((CANVAS_HEIGHT - RECT_HEIGHT) / 2) + RECT_HEIGHT + ZOOM_BTN_SIZE;
+    return getDragBound(pos, minx, miny, maxx, maxy);
+  }
+
+  handleDragTopRightBound = (pos: Pos) => {
+    const minx = this.group.attrs.x + ZOOM_BTN_SIZE + MIN_DESIGN_SIZE;
+    const miny = ((CANVAS_HEIGHT - RECT_HEIGHT) / 2) - ZOOM_BTN_SIZE;
+    const maxx = ((CANVAS_WIDTH - RECT_WIDTH) / 2) + RECT_WIDTH + ZOOM_BTN_SIZE;
+    const maxy = (this.group.attrs.y + this.group.attrs.height) - ZOOM_BTN_SIZE - MIN_DESIGN_SIZE;
+    return getDragBound(pos, minx, miny, maxx, maxy);
+  }
+
+  handleDragBottomRightBound = (pos: Pos) => {
+    const minx = this.group.attrs.x + ZOOM_BTN_SIZE + MIN_DESIGN_SIZE;
+    const miny = this.group.attrs.y + ZOOM_BTN_SIZE + MIN_DESIGN_SIZE;
+    const maxx = ((CANVAS_WIDTH - RECT_WIDTH) / 2) + RECT_WIDTH;
+    const maxy = ((CANVAS_HEIGHT - RECT_HEIGHT) / 2) + RECT_HEIGHT;
+    return getDragBound(pos, minx, miny, maxx, maxy);
+  }
+
+
   handleDragGroup = () => {
-    this.topleft.setX(this.group.attrs.x - 10);
-    this.topleft.setY(this.group.attrs.y - 10);
+    this.topleft.setX(this.group.attrs.x - ZOOM_BTN_SIZE);
+    this.topleft.setY(this.group.attrs.y - ZOOM_BTN_SIZE);
     this.reRenderRect();
   }
 
   reRenderRect = () => {
-    this.topleft.setX(this.group.attrs.x - 10);
-    this.topleft.setY(this.group.attrs.y - 10);
-    this.bottomleft.setX(this.group.attrs.x - 10);
-    this.bottomleft.setY(this.group.attrs.y + this.group.attrs.height);
-    this.topright.setX(this.group.attrs.x + this.group.attrs.width);
-    this.topright.setY(this.group.attrs.y - 10);
-    this.bottomright.setX(this.group.attrs.x + this.group.attrs.width);
-    this.bottomright.setY(this.group.attrs.y + this.group.attrs.height);
+    this.topleft.setX(this.group.attrs.x - ZOOM_BTN_SIZE);
+    this.topleft.setY(this.group.attrs.y - ZOOM_BTN_SIZE);
+    this.bottomleft.setX(this.group.attrs.x - ZOOM_BTN_SIZE);
+    this.bottomleft.setY(this.group.attrs.y + this.group.attrs.height + ZOOM_BTN_SIZE);
+    this.topright.setX(this.group.attrs.x + this.group.attrs.width + ZOOM_BTN_SIZE);
+    this.topright.setY(this.group.attrs.y - ZOOM_BTN_SIZE);
+    this.bottomright.setX(this.group.attrs.x + this.group.attrs.width + ZOOM_BTN_SIZE);
+    this.bottomright.setY(this.group.attrs.y + this.group.attrs.height + ZOOM_BTN_SIZE);
   }
 
   reRenderGroup = (x: number, y: number, width: number, height: number) => {
@@ -192,24 +290,25 @@ class Design extends React.Component {
   }
 
   handleDragTopleft = () => {
-    const groupx = this.topleft.attrs.x + 10;
-    const groupy = this.topleft.attrs.y + 10;
+    const groupx = this.topleft.attrs.x + ZOOM_BTN_SIZE;
+    const groupy = this.topleft.attrs.y + ZOOM_BTN_SIZE;
     const width = (this.group.attrs.x - groupx) + this.group.attrs.width;
     const height = (this.group.attrs.y - groupy) + this.group.attrs.height;
     this.reRenderGroup(groupx, groupy, width, height);
   }
 
   handleDragBottomleft = () => {
-    const groupx = this.bottomleft.attrs.x + 10;
+    const groupx = this.bottomleft.attrs.x + ZOOM_BTN_SIZE;
     const width = (this.group.attrs.x - groupx) + this.group.attrs.width;
-    const height = this.bottomleft.attrs.y - this.group.attrs.y - 10;
+    const height = this.bottomleft.attrs.y - this.group.attrs.y - ZOOM_BTN_SIZE;
     this.reRenderGroup(groupx, this.group.attrs.y, width, height);
   }
 
   handleDragTopRight = () => {
-    const groupy = this.topright.attrs.y + 10;
-    const width = this.topright.attrs.x - this.group.attrs.x - 10;
-    const height = (this.group.attrs.y - this.topright.attrs.y - 10) + this.group.attrs.height;
+    const groupy = this.topright.attrs.y + ZOOM_BTN_SIZE;
+    const width = this.topright.attrs.x - this.group.attrs.x - ZOOM_BTN_SIZE;
+    const height = (this.group.attrs.y - this.topright.attrs.y - ZOOM_BTN_SIZE)
+      + this.group.attrs.height;
     this.reRenderGroup(this.group.attrs.x, groupy, width, height);
   }
 
@@ -219,6 +318,25 @@ class Design extends React.Component {
     this.reRenderGroup(this.group.attrs.x, this.group.attrs.y, width, height);
   }
 
+  handleRemoveDesign = () => {
+    const designs = omit(this.props.order.designs, this.props.designUuid);
+    this.props.updateOrder({
+      designs,
+    });
+  }
+
+  handleMouseOver = (e: Event) => {
+    document.body.style.cursor = 'pointer';
+    e.target.setStrokeWidth(2);
+    this.props.onChangeLayer();
+  }
+
+  handleMouseOut = (e: Event) => {
+    document.body.style.cursor = 'default';
+    e.target.setStrokeWidth(1);
+    this.props.onChangeLayer();
+  }
+
   render() {
     const { x, y, width, height } = this.props.order.designs[this.props.designUuid];
     const canvasXY = toCanvasPx(x, y);
@@ -226,33 +344,61 @@ class Design extends React.Component {
     const adjHeight = toCanvasHeight(height);
     return (
       <Group>
-        <Rect
+        <Circle
+          strokeWidth={1}
           draggable={this.props.editible}
           onDragMove={this.handleDragTopleft}
           onDragEnd={this.handleResizeEnd}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+          dragBoundFunc={this.handleDragTopLeftBound}
           ref={(r) => { this.topleft = r; }}
-          stroke="white" x={canvasXY.x - 10} y={canvasXY.y - 10} width={10} height={10}
+          fill="grey"
+          stroke="white"
+          x={canvasXY.x - ZOOM_BTN_SIZE}
+          y={canvasXY.y - ZOOM_BTN_SIZE} radius={Math.sqrt(2) * ZOOM_BTN_SIZE}
         />
-        <Rect
+        <Circle
+          strokeWidth={1}
           draggable={this.props.editible}
           onDragMove={this.handleDragBottomleft}
           onDragEnd={this.handleResizeEnd}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+          dragBoundFunc={this.handleDragBottomLeftBound}
           ref={(r) => { this.bottomleft = r; }}
-          stroke="white" x={canvasXY.x - 10} y={canvasXY.y + adjHeight} width={10} height={10}
+          fill="grey"
+          stroke="white"
+          x={canvasXY.x - ZOOM_BTN_SIZE}
+          y={canvasXY.y + adjHeight + ZOOM_BTN_SIZE} radius={Math.sqrt(2) * ZOOM_BTN_SIZE}
         />
-        <Rect
+        <Circle
+          strokeWidth={1}
           draggable={this.props.editible}
           onDragMove={this.handleDragTopRight}
           onDragEnd={this.handleResizeEnd}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+          dragBoundFunc={this.handleDragTopRightBound}
           ref={(r) => { this.topright = r; }}
-          stroke="white" x={canvasXY.x + adjWidth} y={canvasXY.y - 10} width={10} height={10}
+          fill="grey"
+          stroke="white"
+          x={canvasXY.x + adjWidth + ZOOM_BTN_SIZE}
+          y={canvasXY.y - ZOOM_BTN_SIZE} radius={Math.sqrt(2) * ZOOM_BTN_SIZE}
         />
-        <Rect
+        <Circle
+          strokeWidth={1}
           draggable={this.props.editible}
           onDragMove={this.handleDragBottomRight}
           onDragEnd={this.handleResizeEnd}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+          dragBoundFunc={this.handleDragBottomRightBound}
           ref={(r) => { this.bottomright = r; }}
-          stroke="white" x={canvasXY.x + adjWidth} y={canvasXY.y + adjHeight} width={10} height={10}
+          fill="grey"
+          stroke="white"
+          x={canvasXY.x + adjWidth + ZOOM_BTN_SIZE}
+          y={canvasXY.y + adjHeight + ZOOM_BTN_SIZE} radius={Math.sqrt(2) * ZOOM_BTN_SIZE}
         />
         <Group
           ref={(g) => { this.group = g; }}
@@ -261,8 +407,29 @@ class Design extends React.Component {
           draggable={this.props.editible}
           onDragMove={this.handleDragGroup}
           onDragEnd={this.handleDragEnd}
+          dragBoundFunc={this.handleDragBound}
         >
+          <Group
+            x={-27.5}
+            y={(adjHeight - 30) / 2}
+            ref={(g) => { this.removeBtn = g; }}
+            onClick={this.handleRemoveDesign}
+            onTouchStart={this.handleRemoveDesign}
+          >
+            <Rect
+              fill="white"
+              x={2.5}
+              height={20}
+              width={15}
+            />
+            <Image
+              height={20}
+              width={20}
+              image={this.state.removeImg}
+            />
+          </Group>
           <Rect
+            strokeWidth={1}
             ref={(r) => { this.rect = r; }}
             stroke="white" width={adjWidth} height={adjHeight} dash={[10, 5]}
           />
