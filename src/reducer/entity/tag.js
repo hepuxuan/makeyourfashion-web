@@ -1,28 +1,30 @@
-import {REPLACE_TAGS} from '../../action'
-import { combineReducers } from 'redux'
-import {keyBy} from 'lodash'
+// @flow
+
+import { combineReducers } from 'redux';
+import { keyBy } from 'lodash';
+import { REPLACE_TAGS } from '../../action';
 
 const initialState = {
   byIds: {},
-  allIds: []
-}
+  allIds: [],
+};
 
-function byIds (state = initialState.byIds, action) {
+function byIds(state = initialState.byIds, action) {
   switch (action.type) {
     case REPLACE_TAGS:
-      return keyBy(action.payload, 'id')
+      return keyBy(action.payload, 'id');
     default:
-      return state 
+      return state;
   }
 }
 
-function allIds (state = initialState.allIds, action) {
+function allIds(state = initialState.allIds, action) {
   switch (action.type) {
     case REPLACE_TAGS:
-      return action.payload.map(tag => tag.id)
+      return action.payload.map(tag => tag.id);
     default:
-      return state 
+      return state;
   }
 }
 
-export default combineReducers({byIds, allIds})
+export default combineReducers({ byIds, allIds });

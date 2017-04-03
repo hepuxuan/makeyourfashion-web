@@ -10,19 +10,7 @@ import SelectDesign from './SelectDesign';
 import OrderForm from './OrderForm';
 import { fetchProducts, addToCart } from '../../action';
 
-// $FlowFixMe decorators
-@connect(state => ({
-  products: state.entities.products,
-  order: state.ui.createOrder.order,
-}), dispatch => ({
-  fetchProducts() {
-    dispatch(fetchProducts());
-  },
-  addToCart(order) {
-    dispatch(addToCart(order));
-  },
-}))
-export default class CreateShirt extends React.Component {
+class CreateShirt extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
   }
@@ -33,9 +21,7 @@ export default class CreateShirt extends React.Component {
     order: {
       productId: number
     },
-    products: Array<{
-      imgUrl: string
-    }>
+    products: any
   }
 
   handleAddToCard = (e: Event) => {
@@ -43,13 +29,12 @@ export default class CreateShirt extends React.Component {
     this.props.addToCart({
       ...this.props.order,
       // use the actual image from backend
-      imgUrl: this.props.products[this.props.order.productId].imgUrl,
+      imgUrl: this.props.products.byIds[this.props.order.productId].imgUrl,
     });
   }
 
   render() {
-    const product = this.props.products[this.props.order.productId];
-    return !product ? <Spinner /> : (
+    return (
       <div>
         <SelectProduct />
         <SelectDesign />
@@ -74,3 +59,15 @@ export default class CreateShirt extends React.Component {
     );
   }
 }
+
+export default connect(state => ({
+  products: state.entities.products,
+  order: state.ui.createOrder.order,
+}), dispatch => ({
+  fetchProducts() {
+    dispatch(fetchProducts());
+  },
+  addToCart(order) {
+    dispatch(addToCart(order));
+  },
+}))(CreateShirt);

@@ -14,7 +14,7 @@ import Modal from '../Modal'
 class ProductCard extends React.Component {
   handleProductSelect = e => {
     this.props.updateOrder({
-      productId: this.props.product.id
+      productId: this.props.product.id,
     })
     this.props.onSelect && this.props.onSelect(e)
   }
@@ -72,13 +72,13 @@ export default class SelectProduct extends React.Component {
 
   render () {
     const categories = values(this.props.categories)
-    const products = values(this.props.products)
+    const products = values(this.props.products.byIds)
     let activeProducts
     if (this.state.activeTab === 0) {  // search for all products
-      activeProducts = values(this.props.products)
+      activeProducts = products
     } else {
       // TODO: better way to filter?
-      activeProducts = values(this.props.products).filter(p => p.category === this.state.activeTab - 1)
+      activeProducts = products.filter(p => p.category === this.state.activeTab - 1)
     }
 
     return <Modal onCloseModal={this.handleToggleProductModel} open={this.props.open}>
@@ -89,7 +89,7 @@ export default class SelectProduct extends React.Component {
       <div className={css.flexlist}>
         {
           activeProducts.map(product => <ProductCard onSelect={this.handleToggleProductModel} product={product} />)
-        } 
+        }
       </div>
     </Modal>
   }

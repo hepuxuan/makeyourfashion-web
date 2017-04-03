@@ -43,6 +43,11 @@
   color: white !important;
 }
 
+.activetab:hover {
+  background-color: rgb(63, 81, 181);
+  color: white !important;
+}
+
 .tab {
   width: auto;
 }

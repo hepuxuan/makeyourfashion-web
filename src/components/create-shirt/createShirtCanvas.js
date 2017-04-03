@@ -23,7 +23,7 @@ class CreateShirtCanvas extends React.Component {
   }
 
   componentDidMount() {
-    const product = this.props.products[this.props.order.productId];
+    const product = this.props.products.byIds[this.props.order.productId];
     if (product) {
       const image = new window.Image();
       image.src = product.imgUrl;
@@ -36,8 +36,8 @@ class CreateShirtCanvas extends React.Component {
   }
 
   componentWillReceiveProps(nextProps: any) {
-    const currentProduct = this.props.products[this.props.order.productId] || {};
-    const newProduct = nextProps.products[nextProps.order.productId] || {};
+    const currentProduct = this.props.products.byIds[this.props.order.productId] || {};
+    const newProduct = nextProps.products.byIds[nextProps.order.productId] || {};
     if (currentProduct.id !== newProduct.id) {
       const image = new window.Image();
       image.src = newProduct.imgUrl;

@@ -1,6 +1,7 @@
 import { isEmpty, pickBy } from 'lodash';
 import uuid from 'uuid/v4';
 import { validateOrder } from './validation';
+import { host } from './config';
 
 const TOGGLE_PRODUCT_MODEL = 'TOGGLE_PRODUCT_MODEL';
 const TOGGLE_DESIGN_MODEL = 'TOGGLE_DESIGN_MODEL';
@@ -20,30 +21,6 @@ const ENTER_PREVIEW_MODE = 'ENTER_PREVIEW_MODE';
 const ADD_SORTED_DESIGNS = 'ADD_SORTED_DESIGNS';
 const REPLACE_TAGS = 'REPLACE_TAGS';
 const REMOVE_DESIGN = 'REMOVE_DESIGN';
-
-const startFetchProduct = {
-  type: START_FETCH_PRODUCT,
-};
-
-const finishFetchProduct = {
-  type: FINISH_FETCH_PRODUCT,
-};
-
-const startFetchDesign = {
-  type: START_FETCH_DESIGN,
-};
-
-const finishFetchDesign = {
-  type: FINISH_FETCH_DESIGN,
-};
-
-const startFetchTag = {
-  type: START_FETCH_TAG,
-};
-
-const finishFetchTag = {
-  type: FINISH_FETCH_TAG,
-};
 
 const toggleProductModel = {
   type: TOGGLE_PRODUCT_MODEL,
@@ -126,17 +103,20 @@ function updateOrder(payload) {
 function fetchProducts() {
   return (dispatch, getState) => {
     const state = getState();
-    if (!state.fetchStatus.isFetchingProduct && isEmpty(state.entities.products)) {
-      dispatch(startFetchProduct);
-      // fetch('/product.json')  // uncomment this when running locally
-      fetch('/makeyourfashion-web/product.json')
+    if (!state.fetchStatus.isFetchingProduct && isEmpty(state.entities.products.byIds)) {
+      dispatch({
+        type: START_FETCH_PRODUCT,
+      });
+      fetch(`${host}product.json`)
         .then(res => res.json())
         .then((products) => {
           dispatch({
             type: REPLACE_PRODUCTS,
             payload: products,
           });
-          dispatch(finishFetchProduct);
+          dispatch({
+            type: FINISH_FETCH_PRODUCT,
+          });
         });
     }
   };
@@ -146,16 +126,19 @@ function fetchTags() {
   return (dispatch, getState) => {
     const state = getState();
     if (!state.fetchStatus.isFetchingTag && isEmpty(state.entities.tags.byIds)) {
-      dispatch(startFetchTag);
-      // fetch('/tag.json')  // uncomment this when running locally
-      fetch('/makeyourfashion-web/tag.json')
+      dispatch({
+        type: START_FETCH_TAG,
+      });
+      fetch(`${host}tag.json`)
         .then(res => res.json())
         .then((tags) => {
           dispatch({
             type: REPLACE_TAGS,
             payload: tags,
           });
-          dispatch(finishFetchTag);
+          dispatch({
+            type: FINISH_FETCH_TAG,
+          });
         });
     }
   };
@@ -165,16 +148,19 @@ function fetchDesigns() {
   return (dispatch, getState) => {
     const state = getState();
     if (!state.fetchStatus.isFetchingDesign && isEmpty(state.entities.designs.byIds)) {
-      dispatch(startFetchDesign);
-      // fetch('/design.json')  // uncomment this when running locally
-      fetch('/makeyourfashion-web/design.json')
+      dispatch({
+        type: START_FETCH_DESIGN,
+      });
+      fetch(`${host}design.json`)
         .then(res => res.json())
         .then((designs) => {
           dispatch({
             type: ADD_SORTED_DESIGNS,
             payload: designs,
           });
-          dispatch(finishFetchDesign);
+          dispatch({
+            type: FINISH_FETCH_DESIGN,
+          });
         });
     }
   };
@@ -184,8 +170,7 @@ function fetchDesignsByTag(tag) {
   return (dispatch, getState) => {
     const state = getState();
     if (isEmpty(state.entities.designs.byTags[tag])) {
-      // fetch(`/design${tag}.json`)  // uncomment this when running locally
-      fetch(`/makeyourfashion-web/design${tag}.json`)
+      fetch(`${host}design${tag}.json`)
         .then(res => res.json())
         .then((designs) => {
           dispatch({
@@ -224,8 +209,6 @@ export {
   fetchProducts,
   fetchDesigns,
   fetchTags,
-  startFetchTag,
-  finishFetchTag,
   addToCart,
   updateCartItem,
   removeItemFromCart,

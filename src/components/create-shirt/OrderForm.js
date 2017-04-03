@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { values, findKey, range } from 'lodash';
@@ -6,21 +8,17 @@ import { updateOrder, fetchProducts } from '../../action';
 import css from './create-shirt.css';
 import { SIZE_LOCALIZE_MAP } from '../../localize';
 
-@connect(state => ({
-  order: state.ui.createOrder.order,
-  products: state.entities.products,
-  error: state.error.order,
-}), dispatch => ({
-  fetchProducts() {
-    dispatch(fetchProducts());
-  },
-  updateOrder(order) {
-    dispatch(updateOrder(order));
-  },
-}))
-export default class OrderForm extends React.Component {
+class OrderForm extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
+  }
+
+  props: {
+    fetchProducts: () => void,
+    updateOrder: (order: any) => void,
+    products: any,
+    order: any,
+    error: any,
   }
 
   handleSelectSize = (text) => {
@@ -36,8 +34,8 @@ export default class OrderForm extends React.Component {
   }
 
   render() {
-    const price = this.props.products[this.props.order.productId].price
-      + (values(this.props.order.designs).length * 5);
+    const product = this.props.products.byIds[this.props.order.productId];
+    const price = product ? product.price + (values(this.props.order.designs).length * 5) : 0;
     return (
       <form className={css.orderform}>
         <div><p className={css.pricelabel}>{`单价：¥ ${price.toFixed(2)}`}</p></div>
@@ -59,3 +57,16 @@ export default class OrderForm extends React.Component {
     );
   }
 }
+
+export default connect(state => ({
+  order: state.ui.createOrder.order,
+  products: state.entities.products,
+  error: state.error.order,
+}), dispatch => ({
+  fetchProducts() {
+    dispatch(fetchProducts());
+  },
+  updateOrder(order) {
+    dispatch(updateOrder(order));
+  },
+}))(OrderForm);

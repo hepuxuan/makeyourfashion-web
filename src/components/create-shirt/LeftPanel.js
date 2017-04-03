@@ -1,74 +1,84 @@
-import React from 'react'
-import {FABButton, Icon, List, ListItem, Grid, Cell, Textfield} from 'react-mdl'
-import {connect} from 'react-redux'
-import { toggleProductModel, toggleDesignModel } from '../../action'
-import css from './create-shirt.css'
-import { fetchProducts } from '../../action'
+// @flow
+import React from 'react';
+import { FABButton, Icon, List, ListItem } from 'react-mdl';
+import { connect } from 'react-redux';
+import { toggleProductModel, toggleDesignModel, fetchProducts } from '../../action';
+import css from './create-shirt.css';
 
-@connect(state => ({
-  products: state.entities.products,
-  order: state.ui.createOrder.order
-}), dispatch => ({
-  toggleProductModel () {
-    dispatch(toggleProductModel)
-  },
-  toggleDesignModel () {
-    dispatch(toggleDesignModel)
-  },
-  fetchProducts () {
-    dispatch(fetchProducts())
-  }
-}))
-export default class LeftPanel extends React.Component {
-  componentDidMount () {
-    this.props.fetchProducts()
+class LeftPanel extends React.Component {
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
-  handleSelectProduct = e => {
-    e.preventDefault()
-    this.props.toggleProductModel()
+  props: {
+    toggleProductModel: () => void,
+    toggleDesignModel: () => void,
+    fetchProducts: () => void,
+    products: any,
+    order: any,
   }
 
-  handleSelectDesign = e => {
-    e.preventDefault()
-    this.props.toggleDesignModel()
+  handleSelectProduct = (e) => {
+    e.preventDefault();
+    this.props.toggleProductModel();
   }
 
-  handleAddText = e => {
-    e.preventDefault()
-    console.log('add text')
+  handleSelectDesign = (e) => {
+    e.preventDefault();
+    this.props.toggleDesignModel();
   }
 
-  render () {
-    const product = this.props.products[this.props.order.productId]
-    return <div>
-      <p className={css.productname}>{product.name}</p>
-      <List>
-        <ListItem>
-          <label className={css.label}>
-            <FABButton onClick={this.handleSelectProduct} mini name='select-product'>
-              <Icon name="collections" />
-            </FABButton>
-            <label htmlFor='select-product'> 选择产品 </label>
-          </label>
-        </ListItem>
-        <ListItem>
-          <label className={css.label}>
-            <FABButton onClick={this.handleSelectDesign} mini name='select-design'>
-              <Icon name="insert_photo" />
-            </FABButton>
-            <label htmlFor='select-design'> 选择设计 </label>
-          </label>
-        </ListItem>
-        <ListItem>
-          <label className={css.label}>
-            <FABButton onClick={this.handleAddText} mini name='add-text'>
-              <Icon name="title" />
-            </FABButton>
-            <label htmlFor='add-text'> 添加文字 </label>
-          </label>
-        </ListItem>
-      </List>
-    </div>
+  handleAddText = (e) => {
+    e.preventDefault();
+  }
+
+  render() {
+    const product = this.props.products.byIds[this.props.order.productId];
+    return (
+      <div>
+        <p className={css.productname}>{product ? product.name : '请选择产品'}</p>
+        <List>
+          <ListItem>
+            <div className={css.label}>
+              <FABButton onClick={this.handleSelectProduct} mini name="select-product">
+                <Icon name="collections" />
+              </FABButton>
+              <label htmlFor="select-product"> 选择产品 </label>
+            </div>
+          </ListItem>
+          <ListItem>
+            <div className={css.label}>
+              <FABButton onClick={this.handleSelectDesign} mini name="select-design">
+                <Icon name="insert_photo" />
+              </FABButton>
+              <label htmlFor="select-design"> 选择设计 </label>
+            </div>
+          </ListItem>
+          <ListItem>
+            <div className={css.label}>
+              <FABButton onClick={this.handleAddText} mini name="add-text">
+                <Icon name="title" />
+              </FABButton>
+              <label htmlFor="add-text"> 添加文字 </label>
+            </div>
+          </ListItem>
+        </List>
+      </div>
+    );
   }
 }
+
+export default connect(state => ({
+  products: state.entities.products,
+  order: state.ui.createOrder.order,
+}), dispatch => ({
+  toggleProductModel() {
+    dispatch(toggleProductModel);
+  },
+  toggleDesignModel() {
+    dispatch(toggleDesignModel);
+  },
+  fetchProducts() {
+    dispatch(fetchProducts());
+  },
+}))(LeftPanel);

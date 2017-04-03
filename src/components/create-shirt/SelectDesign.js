@@ -31,22 +31,26 @@ class DesignCard extends React.Component {
     this.props.onSelect && this.props.onSelect(e);
   }
 
-  render () {
-    return <Card onClick={this.handleDesignSelect}
-      shadow={0}
-      className={css.designcard}
-      style={{background: `url(${this.props.design.imgUrl}) center / cover`}} />
+  render() {
+    return (
+      <Card
+        onClick={this.handleDesignSelect}
+        shadow={0}
+        className={css.designcard}
+        style={{ background: `url(${this.props.design.imgUrl}) center / cover` }}
+      />
+    );
   }
 }
 
 class TagIcon extends React.Component {
-  handleClick = e => {
+  handleClick = (e) => {
     e.preventDefault()
     this.props.onClick(this.props.value)
   }
 
-  render () {
-    return <Chip onClick={this.handleClick}>{this.props.value}</Chip>
+  render() {
+    return <Chip onClick={this.handleClick}>{this.props.value}</Chip>;
   }
 }
 
