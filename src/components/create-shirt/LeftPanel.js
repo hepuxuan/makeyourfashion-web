@@ -2,8 +2,15 @@
 import React from 'react';
 import { FABButton, Icon, List, ListItem } from 'react-mdl';
 import { connect } from 'react-redux';
-import { toggleProductModel, toggleDesignModel, fetchProducts } from '../../action';
+import {
+  toggleProductModel,
+  toggleDesignModel,
+  fetchProducts,
+  toggleAddTextPanel,
+} from '../../action';
 import css from './create-shirt.css';
+import TextSettingsPanel from './TextSettingsPanel';
+import TextEditPanel from './TextEditPanel'
 
 class LeftPanel extends React.Component {
   componentDidMount() {
@@ -16,6 +23,7 @@ class LeftPanel extends React.Component {
     fetchProducts: () => void,
     products: any,
     order: any,
+    toggleAddTextPanel: () => void,
   }
 
   handleSelectProduct = (e) => {
@@ -30,6 +38,7 @@ class LeftPanel extends React.Component {
 
   handleAddText = (e) => {
     e.preventDefault();
+    this.props.toggleAddTextPanel();
   }
 
   render() {
@@ -63,6 +72,9 @@ class LeftPanel extends React.Component {
             </div>
           </ListItem>
         </List>
+        <br />
+        <TextSettingsPanel />
+        <TextEditPanel />
       </div>
     );
   }
@@ -80,5 +92,8 @@ export default connect(state => ({
   },
   fetchProducts() {
     dispatch(fetchProducts());
+  },
+  toggleAddTextPanel() {
+    dispatch(toggleAddTextPanel);
   },
 }))(LeftPanel);

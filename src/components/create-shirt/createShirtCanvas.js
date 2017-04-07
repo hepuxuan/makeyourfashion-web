@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-mdl';
 import { keys } from 'lodash';
 import Design from './Design';
+import Text from './Text';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -51,10 +52,7 @@ class CreateShirtCanvas extends React.Component {
 
   props: {
     products: {},
-    order: {
-      productId: string,
-      designs: Array<any>
-    }
+    order: any,
   }
 
   rect: {
@@ -107,6 +105,12 @@ class CreateShirtCanvas extends React.Component {
                 key={k}
                 editible={this.state.mode === EDIT_MODE}
                 onChangeLayer={this.handlLayerChange} designUuid={k}
+              />)
+            }
+            {
+              keys(this.props.order.texts).map(k => <Text
+                editible={this.state.mode === EDIT_MODE}
+                textId={k}
               />)
             }
           </Layer>

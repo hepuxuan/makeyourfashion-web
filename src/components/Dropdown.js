@@ -4,13 +4,17 @@ import { Button, Menu, MenuItem, Icon } from 'react-mdl';
 import css from './main.css';
 
 export default class Dropdown extends React.Component {
+  static defaultProps = {
+    error: '',
+  }
+
   props: {
     onSelect: (s: string) => void,
     label: string,
     items: Array<string>,
     id: string,
-    error: string,
-    value: string,
+    error?: string,
+    value: string | number,
   }
 
   handleSelect = (e: MouseEvent) => {

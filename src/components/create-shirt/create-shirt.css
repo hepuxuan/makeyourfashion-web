@@ -1,5 +1,6 @@
 .container {
-  background-color: rgb(247, 247, 247);
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
 }
 
 @media (min-width: 600px) {
@@ -83,10 +84,23 @@ canvas {
 }
 
 .pricelabel {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 .tag {
   padding: 0 10px 0 10px;
   cursor: pointer;
+}
+
+.textform {
+  position: relative;
+  background-color: rgb(255,255,255);
+  padding: 20px 20px 20px 20px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.closebutton {
+  position: absolute;
+  right: 0;
+  top: 0;
 }

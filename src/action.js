@@ -1,4 +1,4 @@
-import { isEmpty, pickBy } from 'lodash';
+import { isEmpty, pickBy, omit } from 'lodash';
 import uuid from 'uuid/v4';
 import { validateOrder } from './validation';
 import { host } from './config';
@@ -21,6 +21,9 @@ const ENTER_PREVIEW_MODE = 'ENTER_PREVIEW_MODE';
 const ADD_SORTED_DESIGNS = 'ADD_SORTED_DESIGNS';
 const REPLACE_TAGS = 'REPLACE_TAGS';
 const REMOVE_DESIGN = 'REMOVE_DESIGN';
+const TOGGLE_ADD_TEXT_PANEL = 'TOGGLE_ADD_TEXT_PANEL';
+const UPDATE_ACTIVE_TEXT_ID = 'UPDATE_ACTIVE_TEXT_ID';
+const TOGGLE_EDIT_TEXT_PANEL = 'TOGGLE_EDIT_TEXT_PANEL'
 
 const toggleProductModel = {
   type: TOGGLE_PRODUCT_MODEL,
@@ -29,6 +32,66 @@ const toggleProductModel = {
 const toggleDesignModel = {
   type: TOGGLE_DESIGN_MODEL,
 };
+
+const toggleAddTextPanel = {
+  type: TOGGLE_ADD_TEXT_PANEL,
+};
+
+function toggleEditTextPanel(payload) {
+  return {
+    type: TOGGLE_EDIT_TEXT_PANEL,
+    payload
+  }
+}
+
+function updateActiveTextId(id) {
+  return {
+    type: UPDATE_ACTIVE_TEXT_ID,
+    payload: id,
+  };
+}
+
+function updateOrder(payload) {
+  return (dispatch, getState) => {
+    const newOrder = {
+      ...getState().ui.createOrder.order,
+      ...payload,
+    };
+    localStorage.setItem('currentOrder', JSON.stringify(newOrder));
+    dispatch({
+      type: UPDATE_ORDER,
+      payload,
+    });
+  };
+}
+
+function updateText(payload: {}) {
+  return (dispatch, getState) => {
+    dispatch(updateOrder({
+      texts: {
+        ...getState().ui.createOrder.order.texts,
+        [payload.id]: payload,
+      },
+    }));
+  };
+}
+
+function removeText(id: number) {
+  return (dispatch, getState) => {
+    dispatch(updateOrder({
+      texts: omit(getState().ui.createOrder.order.texts, id),
+    }));
+  };
+}
+
+function addText(payload) {
+  return (dispatch) => {
+    dispatch(updateText({
+      ...payload,
+      id: uuid(),
+    }));
+  };
+}
 
 function removeDesign(id: number) {
   return {
@@ -82,20 +145,6 @@ function addToCart(payload) {
     dispatch({
       type: ADD_TO_CART,
       payload: newItem,
-    });
-  };
-}
-
-function updateOrder(payload) {
-  return (dispatch, getState) => {
-    const newOrder = {
-      ...getState().ui.createOrder.order,
-      ...payload,
-    };
-    localStorage.setItem('currentOrder', JSON.stringify(newOrder));
-    dispatch({
-      type: UPDATE_ORDER,
-      payload,
     });
   };
 }
@@ -202,7 +251,10 @@ export {
   ADD_DESIGNS_BY_TAG,
   ADD_SORTED_DESIGNS,
   ENTER_PREVIEW_MODE,
+  TOGGLE_ADD_TEXT_PANEL,
   REPLACE_TAGS,
+  UPDATE_ACTIVE_TEXT_ID,
+  TOGGLE_EDIT_TEXT_PANEL,
   toggleProductModel,
   toggleDesignModel,
   updateOrder,
@@ -214,4 +266,10 @@ export {
   removeItemFromCart,
   fetchDesignsByTag,
   removeDesign,
+  addText,
+  updateText,
+  toggleAddTextPanel,
+  toggleEditTextPanel,
+  updateActiveTextId,
+  removeText,
 };

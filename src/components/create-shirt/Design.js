@@ -19,26 +19,6 @@ import {
   RECT_HEIGHT,
 } from './consts';
 
-type Pos = {
-  x: number,
-  y: number,
-}
-
-type KonvaType = {
-  show: () => void,
-  hide: () => void,
-  setX: () => void,
-  setY: () => void,
-  setWidth: () => void,
-  setHeight: () => void,
-  attrs: {
-    x: number,
-    y: number,
-    height: number,
-    width: number,
-  },
-}
-
 const ZOOM_BTN_SIZE = 5;
 const MIN_DESIGN_SIZE = 10;
 
@@ -69,18 +49,10 @@ function getDragBound(pos: Pos, minx: number, miny: number, maxx: number, maxy: 
 }
 
 class Design extends React.Component {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      image: null,
-      removeImg: null,
-    };
-  }
-
-  state: {
-    image: Image,
-    removeImg: Image,
-  }
+  state = {
+    image: null,
+    removeImg: null,
+  };
 
   componentDidMount() {
     this.props.fetchDesigns();
@@ -426,6 +398,8 @@ class Design extends React.Component {
               height={20}
               width={20}
               image={this.state.removeImg}
+              onMouseOver={this.handleMouseOver}
+              onMouseOut={this.handleMouseOut}
             />
           </Group>
           <Rect

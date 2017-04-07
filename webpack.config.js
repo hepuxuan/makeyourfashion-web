@@ -1,13 +1,14 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: ['promise-polyfill',  'whatwg-fetch', 'dialog-polyfill', './src/index.js'],
   output: {
-    path: './docs',
+    path: path.resolve(__dirname, "docs"),
     filename: 'build.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -28,10 +29,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ['.js', '.json']
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ output: {comments: false} }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })
   ]
 };

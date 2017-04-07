@@ -1,3 +1,7 @@
+body {
+  background-color: #fdfdf9;
+}
+
 .header {
   box-shadow: 0 3px 10px rgba(0,0,0,.25);
   margin-bottom: 20px;
@@ -14,14 +18,15 @@
 }
 
 .header-tab {
-  font-size: 1.125em;
+  font-family: georgia;
   padding-top: 20px;
   height: 50px;
 }
 
 @media (min-width: 600px) {
   .header {
-    padding: 0 40px 0 40px;
+    padding: 0 20px 0 20px;
+    letter-spacing: .20rem;
   }
   .header-tab {
     min-width: 80px;
